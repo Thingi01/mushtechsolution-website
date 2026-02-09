@@ -1158,22 +1158,28 @@
             
             <div class="contact-form">
                 <h3>Send Us a Message</h3>
-                <form id="contactForm">
+                <form action="https://formsubmit.co/mushtechsolution@gmail.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New inquiry from Mush Tech Solution website">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://mushtech.com/thank-you.html">
+                    
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" required>
+                        <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" required>
+                        <input type="tel" id="phone" name="phone" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email">
+                        <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="service">Service Interested In</label>
-                        <select id="service">
+                        <select id="service" name="service">
                             <option value="">Select a service</option>
                             <option value="cctv">CCTV Camera Installation</option>
                             <option value="access">Access Control</option>
@@ -1187,7 +1193,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" required></textarea>
+                        <textarea id="message" name="message" required></textarea>
                     </div>
                     <button type="submit" class="btn-primary" style="width: 100%;">
                         Send Message <i class="fas fa-paper-plane"></i>
@@ -1279,20 +1285,6 @@
             } else {
                 header.classList.remove('scrolled');
             }
-        });
-        
-        // Form submission
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const service = document.getElementById('service').value;
-            
-            alert(`Thank you ${name}! We've received your inquiry${service ? ' for ' + service : ''}. We'll contact you at ${phone} shortly.`);
-            
-            contactForm.reset();
         });
         
         // Smooth scrolling

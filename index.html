@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mush Tech Solution - Security & IT Services</title>
+    <title>Mush Tech Solution - Advanced Security & IT Services in Nairobi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1a5fb4;
-            --secondary-color: #26a269;
-            --dark-color: #1c1c1c;
-            --light-color: #f8f8f8;
-            --gray-color: #5e5c64;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --primary: #409891;
+            --primary-dark: #2f7269;
+            --secondary: #48ADB7;
+            --accent: #BAD0CC;
+            --light-bg: #E6E5E1;
+            --dark: #2c3e3a;
+            --dark-surface: #3d514d;
+            --dark-elevated: #4a5f5b;
+            --text-primary: #2c3e3a;
+            --text-secondary: #5a6e6a;
+            --text-muted: #7a8c88;
+            --text-light: #ffffff;
         }
         
         * {
@@ -24,291 +30,687 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Lato', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: var(--dark-color);
-            background-color: #fff;
+            overflow-x: hidden;
         }
         
-        h1, h2, h3, h4, h5 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-            margin-bottom: 1rem;
-        }
-        
-        .container {
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #E6E5E1 0%, #f5f4f0 50%, #E6E5E1 100%);
+            overflow: hidden;
         }
         
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        
-        .btn:hover {
-            background-color: #0d4a9c;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary-color);
-        }
-        
-        .btn-secondary:hover {
-            background-color: #1e8a53;
-        }
-        
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--dark-color);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2::after {
+        .background-animation::before {
             content: '';
             position: absolute;
-            width: 70px;
-            height: 4px;
-            background-color: var(--primary-color);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(64, 152, 145, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(72, 173, 183, 0.08) 0%, transparent 50%);
+            animation: drift 20s ease-in-out infinite;
         }
         
-        /* Header Styles */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, -50px); }
+        }
+        
+        .grid-overlay {
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(64, 152, 145, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(64, 152, 145, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
         }
         
-        .header-container {
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(230, 229, 225, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(64, 152, 145, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background: rgba(230, 229, 225, 0.98);
+            box-shadow: 0 10px 40px rgba(64, 152, 145, 0.15);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
         }
         
         .logo {
             display: flex;
             align-items: center;
+            gap: 0.8rem;
         }
         
-        .logo h1 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 0;
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: pulse-glow 2s ease-in-out infinite;
         }
         
-        .logo span {
-            color: var(--secondary-color);
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(64, 152, 145, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(64, 152, 145, 0.5); }
+        }
+        
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         nav ul {
             display: flex;
             list-style: none;
+            gap: 2.5rem;
+            align-items: center;
         }
         
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
+        nav a {
+            color: var(--text-primary);
             text-decoration: none;
-            color: var(--dark-color);
             font-weight: 500;
-            transition: color 0.3s;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
         
-        nav ul li a:hover {
-            color: var(--primary-color);
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(64, 152, 145, 0.4);
         }
         
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
+            color: var(--primary);
             font-size: 1.5rem;
-            color: var(--primary-color);
             cursor: pointer;
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(64, 152, 145, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(64, 152, 145, 0.2);
+            border: 1px solid rgba(64, 152, 145, 0.2);
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-icon:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 60%; right: 15%; animation-delay: 1s; }
+        .floating-icon:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        
+        .section-header {
             text-align: center;
-            padding: 180px 0 120px;
-            margin-top: 70px;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
         }
         
-        .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 20px;
+        .section-label {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            display: inline-block;
+            font-weight: 600;
         }
         
-        .hero p {
-            font-size: 1.2rem;
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
             max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
+            margin: 0 auto;
         }
         
         /* Services Section */
         .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
         
         .service-card {
-            background-color: white;
-            border-radius: 8px;
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(64, 152, 145, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(64, 152, 145, 0.05), rgba(72, 173, 183, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
         
         .service-card:hover {
             transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(64, 152, 145, 0.15);
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
         }
         
         .service-icon {
-            background-color: var(--primary-color);
-            color: white;
+            width: 80px;
             height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
         
-        .service-content {
-            padding: 25px;
-        }
-        
-        .service-content h3 {
-            color: var(--primary-color);
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            color: var(--text-primary);
+        }
+        
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, rgba(186, 208, 204, 0.3), rgba(72, 173, 183, 0.2));
+            border-top: 1px solid rgba(64, 152, 145, 0.2);
+            border-bottom: 1px solid rgba(64, 152, 145, 0.2);
+        }
+        
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         /* About Section */
-        .about {
-            background-color: #f5f9ff;
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
         }
         
-        .about-content {
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .features-list li {
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
         }
         
-        .about-text {
-            flex: 1;
+        .features-list i {
+            color: var(--primary);
+            font-size: 1.2rem;
         }
         
         .about-image {
-            flex: 1;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+            position: relative;
         }
         
         .about-image img {
             width: 100%;
-            height: auto;
-            display: block;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(64, 152, 145, 0.2);
+            border: 1px solid rgba(64, 152, 145, 0.2);
+        }
+        
+        /* Gallery Section */
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
         }
         
         /* Contact Section */
-        .contact-container {
+        .contact-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
         }
         
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 2rem;
         }
         
         .contact-item {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(64, 152, 145, 0.15);
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
         }
         
-        .contact-icon {
-            background-color: var(--primary-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .contact-item:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .contact-item-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             flex-shrink: 0;
         }
         
+        .contact-item-content h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+        
+        .contact-item-content p {
+            color: var(--text-secondary);
+        }
+        
         .contact-form {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(64, 152, 145, 0.15);
+        }
+        
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
             font-weight: 500;
         }
         
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: 'Roboto', sans-serif;
+            padding: 1rem;
+            background: var(--light-bg);
+            border: 1px solid rgba(64, 152, 145, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Lato', sans-serif;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(64, 152, 145, 0.15);
         }
         
         .form-group textarea {
@@ -318,132 +720,193 @@
         
         /* Footer */
         footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 60px 0 30px;
+            background: var(--dark);
+            border-top: 1px solid rgba(64, 152, 145, 0.2);
+            padding: 4rem 2rem 2rem;
         }
         
         .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
         
-        .footer-column h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
+        .footer-column h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
         }
         
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 3px;
-            background-color: var(--primary-color);
-            bottom: 0;
-            left: 0;
+        .footer-column p,
+        .footer-column li {
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            line-height: 1.7;
         }
         
         .footer-column ul {
             list-style: none;
         }
         
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-column ul li a {
-            color: #bbb;
+        .footer-column a {
+            color: var(--accent);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
         
-        .footer-column ul li a:hover {
+        .footer-column a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
         
-        .copyright {
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(64, 152, 145, 0.3);
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(64, 152, 145, 0.2);
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #444;
-            color: #aaa;
-            font-size: 0.9rem;
+            color: var(--accent);
+        }
+        
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3.5rem;
             }
             
-            .about-content {
-                flex-direction: column;
+            .section-title {
+                font-size: 2.5rem;
             }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             nav ul {
                 display: none;
-                position: absolute;
-                top: 70px;
+                position: fixed;
+                top: 80px;
                 left: 0;
                 width: 100%;
-                background-color: white;
+                background: rgba(230, 229, 225, 0.98);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid rgba(64, 152, 145, 0.2);
             }
             
             nav ul.active {
                 display: flex;
             }
             
-            nav ul li {
-                margin: 10px 0;
-            }
-            
             .mobile-menu-btn {
                 display: block;
             }
             
-            .hero {
-                padding: 150px 0 90px;
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
             
-            .hero h1 {
-                font-size: 2.4rem;
+            .hero-title {
+                font-size: 3rem;
             }
             
-            section {
-                padding: 60px 0;
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .contact-wrapper {
+                grid-template-columns: 1fr;
             }
         }
         
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2rem;
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2.5rem;
             }
             
-            .section-title h2 {
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
                 font-size: 2rem;
             }
             
             .services-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="background-animation"></div>
+    <div class="grid-overlay"></div>
+
     <!-- Header -->
-    <header>
-        <div class="container header-container">
+    <header id="header">
+        <div class="nav-container">
             <div class="logo">
-                <h1>MUSH <span>TECH</span> SOLUTION</h1>
+                <div class="logo-icon">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <div class="logo-text">MUSH TECH</div>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -453,7 +916,8 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact" class="cta-button">Get Started</a></li>
                 </ul>
             </nav>
         </div>
@@ -461,118 +925,189 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="container">
-            <h1>Secure Your World with Advanced Technology</h1>
-            <p>Mush Tech Solution provides comprehensive security and IT services including CCTV installation, access control, electric fencing, and general IT support for residential and commercial clients in Nairobi and beyond.</p>
-            <a href="#contact" class="btn">Get In Touch</a>
+        <div class="floating-elements">
+            <i class="fas fa-video floating-icon"></i>
+            <i class="fas fa-lock floating-icon"></i>
+            <i class="fas fa-bolt floating-icon"></i>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Secure Your World with Advanced Technology</h1>
+                <p class="hero-subtitle">Leading provider of comprehensive security and IT solutions in Nairobi. CCTV installation, access control, electric fencing, and cutting-edge IT infrastructure for residential and commercial properties.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">
+                        Request Quote <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#services" class="btn-secondary">
+                        Our Services <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Advanced Security Systems">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Client Satisfaction</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support Available</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
         </div>
     </section>
 
     <!-- Services Section -->
     <section id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Services</h2>
-                <p>We offer a wide range of security and IT solutions tailored to your needs</p>
+        <div class="section-header">
+            <div class="section-label">What We Offer</div>
+            <h2 class="section-title">Our Premium Services</h2>
+            <p class="section-description">Comprehensive security and IT solutions tailored to protect your assets and enhance your infrastructure</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>CCTV Camera Installation</h3>
+                <p>Professional installation of high-definition CCTV surveillance systems with remote monitoring capabilities. Indoor and outdoor cameras ensuring 24/7 security coverage for your property.</p>
             </div>
-            <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>CCTV Camera Installation</h3>
-                        <p>Professional installation of high-definition CCTV systems for homes and businesses. We provide both indoor and outdoor cameras with remote monitoring capabilities, ensuring 24/7 surveillance and peace of mind.</p>
-                    </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-fingerprint"></i>
                 </div>
-                
-                <!-- Service 2 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-door-closed"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Access Control Systems</h3>
-                        <p>Advanced access control solutions including biometric scanners, key card systems, and digital locks. We help you manage who enters your premises with customizable security levels and audit trails.</p>
-                    </div>
+                <h3>Access Control Systems</h3>
+                <p>Advanced biometric scanners, key card systems, and digital locks. Manage access with customizable security levels and comprehensive audit trails for complete control.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bolt"></i>
                 </div>
-                
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Electric Fencing</h3>
-                        <p>Installation of perimeter electric fencing systems that provide a strong deterrent against intruders. Our systems are safe, reliable, and designed to meet specific security requirements for any property.</p>
-                    </div>
+                <h3>Electric Fencing</h3>
+                <p>Perimeter security with electric fencing systems that provide strong deterrents against intrusion. Safe, reliable, and designed for specific property requirements.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bell"></i>
                 </div>
-                
-                <!-- Service 4 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Intruder Alarm Systems</h3>
-                        <p>Comprehensive intruder detection systems with sensors, alarms, and direct connection to security response teams. Our systems are designed to detect unauthorized entry and alert you immediately.</p>
-                    </div>
+                <h3>Intruder Alarm Systems</h3>
+                <p>Comprehensive detection systems with sensors, alarms, and direct connection to security response teams. Immediate alerts for unauthorized entry attempts.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-phone-volume"></i>
                 </div>
-                
-                <!-- Service 5 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Intercom Systems</h3>
-                        <p>Installation of modern intercom systems for residential and commercial buildings. Our solutions include video intercoms, door entry systems, and integration with access control for seamless communication.</p>
-                    </div>
+                <h3>Intercom Systems</h3>
+                <p>Modern video intercoms and door entry systems for residential and commercial buildings. Seamless integration with access control for enhanced communication.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-network-wired"></i>
                 </div>
-                
-                <!-- Service 6 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Networking & Structure Cabling</h3>
-                        <p>Professional networking solutions including LAN/WAN setup, WiFi installation, and structured cabling for data, voice, and video. We ensure reliable connectivity for homes and businesses of all sizes.</p>
-                    </div>
+                <h3>Networking & Cabling</h3>
+                <p>Professional LAN/WAN setup, WiFi installation, and structured cabling for data, voice, and video. Reliable connectivity for all property sizes.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-laptop-code"></i>
                 </div>
-                
-                <!-- Service 7 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>General IT Support</h3>
-                        <p>Comprehensive IT support services including hardware/software troubleshooting, system maintenance, virus removal, data backup solutions, and IT consultancy for businesses in Nairobi.</p>
-                    </div>
-                </div>
+                <h3>General IT Support</h3>
+                <p>Comprehensive IT support including hardware/software troubleshooting, system maintenance, virus removal, data backup solutions, and IT consultancy.</p>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Us</h2>
-                <p>Your trusted partner in security and IT solutions</p>
+    <section id="about">
+        <div class="section-header">
+            <div class="section-label">Who We Are</div>
+            <h2 class="section-title">About Mush Tech Solution</h2>
+            <p class="section-description">Your trusted partner in security and IT excellence across Nairobi</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Leading Security & IT Services Provider</h3>
+                <p>Mush Tech Solution is a premier provider of security and IT services based in Nairobi, Kenya. With over a decade of experience, we specialize in delivering comprehensive solutions tailored to meet the unique needs of our diverse clientele.</p>
+                <p>Our team of certified professionals is dedicated to providing top-quality installations, maintenance, and support. We utilize cutting-edge technology and premium equipment to ensure your security systems are reliable, efficient, and effective.</p>
+                
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Certified and experienced technicians</li>
+                    <li><i class="fas fa-check-circle"></i> Latest security technology and equipment</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 customer support and maintenance</li>
+                    <li><i class="fas fa-check-circle"></i> Customized solutions for every client</li>
+                    <li><i class="fas fa-check-circle"></i> Competitive pricing and warranties</li>
+                </ul>
+                
+                <a href="#contact" class="btn-primary">Get Free Consultation</a>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Professional Security & IT Services in Nairobi</h3>
-                    <p>Mush Tech Solution is a leading provider of security and IT services based in Nairobi, Kenya. With years of experience in the industry, we specialize in delivering comprehensive security solutions tailored to meet the unique needs of our clients.</p>
-                    <p>Our team of certified professionals is dedicated to providing top-quality installations, maintenance, and support for all our services. We use only the latest technology and equipment to ensure your security systems are reliable, efficient, and effective.</p>
-                    <p>Located at Menengai Building in Nairobi, we serve both residential and commercial clients across the region, offering personalized service and ongoing support to ensure your complete satisfaction.</p>
-                    <a href="#contact" class="btn btn-secondary">Contact Us Today</a>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80" alt="Professional Security Installation">
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="section-header">
+            <div class="section-label">Our Work</div>
+            <h2 class="section-title">Project Gallery</h2>
+            <p class="section-description">Explore our successful security and IT installations across Nairobi</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80" alt="CCTV Installation">
+                <div class="gallery-overlay">
+                    <h4>CCTV Installation</h4>
                 </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Security System Installation">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80" alt="Access Control System">
+                <div class="gallery-overlay">
+                    <h4>Access Control</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&q=80" alt="IT Infrastructure">
+                <div class="gallery-overlay">
+                    <h4>IT Infrastructure</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Commercial Security">
+                <div class="gallery-overlay">
+                    <h4>Commercial Security</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1551739440-5dd934d3a94a?w=600&q=80" alt="Network Setup">
+                <div class="gallery-overlay">
+                    <h4>Network Setup</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&q=80" alt="Residential Security">
+                <div class="gallery-overlay">
+                    <h4>Residential Security</h4>
                 </div>
             </div>
         </div>
@@ -580,143 +1115,137 @@
 
     <!-- Contact Section -->
     <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>Get in touch for a free consultation or quote</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Call Us</h3>
-                            <p>0792 541 685</p>
-                            <p>0731 231 908</p>
-                        </div>
+        <div class="section-header">
+            <div class="section-label">Get In Touch</div>
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-description">Ready to secure your property? Contact us for a free consultation</p>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <i class="fas fa-phone-alt"></i>
                     </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Our Location</h3>
-                            <p>Menengai Building, Nairobi, Kenya</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <h3>Business Hours</h3>
-                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                            <p>Saturday: 9:00 AM - 2:00 PM</p>
-                            <p>Sunday: Closed</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-info-circle"></i>
-                        </div>
-                        <div>
-                            <h3>Design & Development</h3>
-                            <p>Website designed by: 0740 027 395</p>
-                        </div>
+                    <div class="contact-item-content">
+                        <h4>Call Us</h4>
+                        <p>0792 541 685</p>
+                        <p>0731 231 908</p>
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="service">Service Interested In</label>
-                            <select id="service" style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px;">
-                                <option value="">Select a service</option>
-                                <option value="cctv">CCTV Camera Installation</option>
-                                <option value="access">Access Control</option>
-                                <option value="fencing">Electric Fencing</option>
-                                <option value="alarm">Intruder Alarm System</option>
-                                <option value="intercom">Intercom System</option>
-                                <option value="networking">Networking & Structure Cabling</option>
-                                <option value="it">General IT Support</option>
-                                <option value="multiple">Multiple Services</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <h4>Our Location</h4>
+                        <p>Menengai Building<br>Nairobi, Kenya</p>
+                    </div>
                 </div>
+                
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <h4>Business Hours</h4>
+                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                        <p>Saturday: 9:00 AM - 2:00 PM</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Interested In</label>
+                        <select id="service">
+                            <option value="">Select a service</option>
+                            <option value="cctv">CCTV Camera Installation</option>
+                            <option value="access">Access Control</option>
+                            <option value="fencing">Electric Fencing</option>
+                            <option value="alarm">Intruder Alarm System</option>
+                            <option value="intercom">Intercom System</option>
+                            <option value="networking">Networking & Cabling</option>
+                            <option value="it">General IT Support</option>
+                            <option value="multiple">Multiple Services</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">
+                        Send Message <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>MUSH TECH SOLUTION</h3>
-                    <p>Your trusted partner for comprehensive security and IT solutions in Nairobi and beyond. We provide professional installations, maintenance, and support services.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Our Services</h3>
-                    <ul>
-                        <li><a href="#services">CCTV Camera Installation</a></li>
-                        <li><a href="#services">Access Control</a></li>
-                        <li><a href="#services">Electric Fencing</a></li>
-                        <li><a href="#services">Intruder Alarm System</a></li>
-                        <li><a href="#services">Intercom System</a></li>
-                        <li><a href="#services">Networking & Cabling</a></li>
-                        <li><a href="#services">General IT Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <ul>
-                        <li><i class="fas fa-phone-alt"></i> 0792 541 685</li>
-                        <li><i class="fas fa-phone-alt"></i> 0731 231 908</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Menengai Building, Nairobi</li>
-                        <li><i class="fas fa-user-cog"></i> Design: 0740 027 395</li>
-                    </ul>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>MUSH TECH SOLUTION</h4>
+                <p>Leading provider of comprehensive security and IT solutions in Nairobi. Professional installations, maintenance, and 24/7 support services.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             
-            <div class="copyright">
-                <p>&copy; 2023 Mush Tech Solution. All rights reserved.</p>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
             </div>
+            
+            <div class="footer-column">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#services">CCTV Installation</a></li>
+                    <li><a href="#services">Access Control</a></li>
+                    <li><a href="#services">Electric Fencing</a></li>
+                    <li><a href="#services">Alarm Systems</a></li>
+                    <li><a href="#services">IT Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li><i class="fas fa-phone-alt"></i> 0792 541 685</li>
+                    <li><i class="fas fa-phone-alt"></i> 0731 231 908</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Menengai Building, Nairobi</li>
+                    <li style="margin-top: 1rem; font-size: 0.9rem;">Website Design: 0740 027 395</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mush Tech Solution. All rights reserved.</p>
         </div>
     </footer>
 
@@ -727,12 +1256,11 @@
         
         mobileMenuBtn.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            const icon = navMenu.classList.contains('active') ? 'fa-times' : 'fa-bars';
+            mobileMenuBtn.innerHTML = `<i class="fas ${icon}"></i>`;
         });
         
-        // Close mobile menu when clicking on a link
+        // Close mobile menu on link click
         document.querySelectorAll('nav ul li a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
@@ -740,40 +1268,67 @@
             });
         });
         
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
         // Form submission
         const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Get form values
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const service = document.getElementById('service').value;
             
-            // In a real application, you would send this data to a server
-            // For this demo, we'll just show an alert
-            alert(`Thank you ${name}! We have received your inquiry for ${service || 'our services'}. We will contact you at ${phone} shortly.`);
+            alert(`Thank you ${name}! We've received your inquiry${service ? ' for ' + service : ''}. We'll contact you at ${phone} shortly.`);
             
-            // Reset form
             contactForm.reset();
         });
         
-        // Smooth scrolling for anchor links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
+                if (targetId === '#') return;
                 
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
                     window.scrollTo({
-                        top: targetElement.offsetTop - 70,
+                        top: offsetPosition,
                         behavior: 'smooth'
                     });
                 }
             });
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.service-card, .stat-item, .gallery-item').forEach(el => {
+            observer.observe(el);
         });
     </script>
 </body>

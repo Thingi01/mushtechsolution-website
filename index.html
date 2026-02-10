@@ -16,963 +16,257 @@
             --accent: #BAD0CC;
             --light-bg: #E6E5E1;
             --dark: #2c3e3a;
-            --dark-surface: #3d514d;
-            --dark-elevated: #4a5f5b;
             --text-primary: #2c3e3a;
             --text-secondary: #5a6e6a;
             --text-muted: #7a8c88;
-            --text-light: #ffffff;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Lato', sans-serif;
-            background: var(--light-bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* Animated Background */
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #E6E5E1 0%, #f5f4f0 50%, #E6E5E1 100%);
-            overflow: hidden;
-        }
-        
-        .background-animation::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 50%, rgba(64, 152, 145, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(72, 173, 183, 0.08) 0%, transparent 50%);
-            animation: drift 20s ease-in-out infinite;
-        }
-        
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-50px, -50px); }
-        }
-        
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(64, 152, 145, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(64, 152, 145, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Lato',sans-serif;background:var(--light-bg);color:var(--text-primary);line-height:1.6;overflow-x:hidden;}
+
+        /* Background */
+        .bg-anim{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:linear-gradient(135deg,#E6E5E1 0%,#f5f4f0 50%,#E6E5E1 100%);}
+        .bg-anim::before{content:'';position:absolute;width:200%;height:200%;background:radial-gradient(circle at 20% 50%,rgba(64,152,145,.08) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(72,173,183,.08) 0%,transparent 50%);animation:drift 20s ease-in-out infinite;}
+        @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-50px)}}
+        .grid-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(64,152,145,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(64,152,145,.04) 1px,transparent 1px);background-size:50px 50px;z-index:-1;pointer-events:none;}
+
+        /* WhatsApp Float */
+        .whatsapp-float{position:fixed;bottom:2rem;right:2rem;width:62px;height:62px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:white;text-decoration:none;box-shadow:0 8px 25px rgba(37,211,102,.45);z-index:9999;transition:all .3s ease;animation:wa-pulse 2.5s ease-in-out infinite;}
+        .whatsapp-float:hover{transform:scale(1.1);box-shadow:0 12px 35px rgba(37,211,102,.65);}
+        @keyframes wa-pulse{0%,100%{box-shadow:0 8px 25px rgba(37,211,102,.45)}50%{box-shadow:0 8px 35px rgba(37,211,102,.7)}}
+        .whatsapp-tooltip{position:absolute;right:72px;background:var(--dark);color:white;padding:.45rem 1rem;border-radius:8px;font-size:.82rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s;font-family:'Lato',sans-serif;}
+        .whatsapp-tooltip::after{content:'';position:absolute;right:-6px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-right:none;border-left-color:var(--dark);}
+        .whatsapp-float:hover .whatsapp-tooltip{opacity:1;}
+
         /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(230, 229, 225, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(64, 152, 145, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        header.scrolled {
-            background: rgba(230, 229, 225, 0.98);
-            box-shadow: 0 10px 40px rgba(64, 152, 145, 0.15);
-        }
-        
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        
-        .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(64, 152, 145, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(64, 152, 145, 0.5); }
-        }
-        
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-            align-items: center;
-        }
-        
-        nav a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover {
-            color: var(--primary);
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        .cta-button {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.7rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(64, 152, 145, 0.4);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 8rem 2rem 4rem;
-        }
-        
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .hero-text {
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            line-height: 1.8;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(64, 152, 145, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 2px solid var(--primary);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .hero-image {
-            position: relative;
-            animation: fadeInRight 1s ease-out 0.3s both;
-        }
-        
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .hero-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(64, 152, 145, 0.2);
-            border: 1px solid rgba(64, 152, 145, 0.2);
-        }
-        
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        
-        .floating-icon {
-            position: absolute;
-            font-size: 2rem;
-            color: var(--primary);
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .floating-icon:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .floating-icon:nth-child(2) { top: 60%; right: 15%; animation-delay: 1s; }
-        .floating-icon:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* Section Styles */
-        section {
-            padding: 6rem 2rem;
-            position: relative;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .section-label {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--primary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1rem;
-            display: inline-block;
-            font-weight: 600;
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .section-description {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* Services Section */
-        .services-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-        
-        .service-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid rgba(64, 152, 145, 0.15);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(64, 152, 145, 0.05), rgba(72, 173, 183, 0.05));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(64, 152, 145, 0.15);
-        }
-        
-        .service-card:hover::before {
-            opacity: 1;
-        }
-        
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .service-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-            color: var(--text-primary);
-        }
-        
-        .service-card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, rgba(186, 208, 204, 0.3), rgba(72, 173, 183, 0.2));
-            border-top: 1px solid rgba(64, 152, 145, 0.2);
-            border-bottom: 1px solid rgba(64, 152, 145, 0.2);
-        }
-        
-        .stats-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        /* About Section */
-        .about-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-        
-        .about-text h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .about-text p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-        
-        .features-list {
-            list-style: none;
-            margin: 2rem 0;
-        }
-        
-        .features-list li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-        
-        .features-list i {
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-        
-        .about-image {
-            position: relative;
-        }
-        
-        .about-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(64, 152, 145, 0.2);
-            border: 1px solid rgba(64, 152, 145, 0.2);
-        }
-        
-        /* Gallery Section */
-        .gallery-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .gallery-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 4/3;
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-            display: flex;
-            align-items: flex-end;
-            padding: 1.5rem;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-        
-        .gallery-overlay h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-        }
-        
-        /* Contact Section */
-        .contact-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        
-        .contact-item {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(64, 152, 145, 0.15);
-            display: flex;
-            gap: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            border-color: var(--primary);
-            transform: translateX(5px);
-        }
-        
-        .contact-item-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        
-        .contact-item-content h4 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-            color: var(--text-primary);
-        }
-        
-        .contact-item-content p {
-            color: var(--text-secondary);
-        }
-        
-        .contact-form {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid rgba(64, 152, 145, 0.15);
-        }
-        
-        .contact-form h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            background: var(--light-bg);
-            border: 1px solid rgba(64, 152, 145, 0.2);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-family: 'Lato', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(64, 152, 145, 0.15);
-        }
-        
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
+        header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(230,229,225,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(64,152,145,.2);transition:all .3s;}
+        header.scrolled{background:rgba(230,229,225,.98);box-shadow:0 10px 40px rgba(64,152,145,.15);}
+        .nav-container{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+        .logo{display:flex;align-items:center;gap:.75rem;}
+        .logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:white;animation:pulse-glow 2s ease-in-out infinite;}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(64,152,145,.3)}50%{box-shadow:0 0 30px rgba(64,152,145,.55)}}
+        .logo-text{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;letter-spacing:1px;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        nav ul{display:flex;list-style:none;gap:1.8rem;align-items:center;}
+        nav a{color:var(--text-primary);text-decoration:none;font-weight:500;font-size:.93rem;transition:all .3s;position:relative;}
+        nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--primary);transition:width .3s;}
+        nav a:hover{color:var(--primary);}
+        nav a:hover::after{width:100%;}
+        .cta-button{background:linear-gradient(135deg,var(--primary),var(--secondary)) !important;color:white !important;padding:.65rem 1.5rem;border-radius:50px;font-weight:600 !important;}
+        .cta-button:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(64,152,145,.4);}
+        .cta-button::after{display:none !important;}
+        .mobile-menu-btn{display:none;background:none;border:none;color:var(--primary);font-size:1.5rem;cursor:pointer;}
+
+        /* Buttons */
+        .btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:.95rem 2.3rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;border:none;cursor:pointer;}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(64,152,145,.4);}
+        .btn-secondary{background:transparent;color:var(--primary);padding:.95rem 2.3rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem;border:2px solid var(--primary);transition:all .3s;cursor:pointer;}
+        .btn-secondary:hover{background:var(--primary);color:white;transform:translateY(-3px);}
+
+        /* Section base */
+        section{padding:5.5rem 2rem;position:relative;}
+        .container{max-width:1400px;margin:0 auto;}
+        .section-header{text-align:center;margin-bottom:3.5rem;}
+        .section-label{font-family:'Montserrat',sans-serif;color:var(--primary);font-size:.82rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:.75rem;display:inline-block;font-weight:700;}
+        .section-title{font-family:'Playfair Display',serif;font-size:2.7rem;font-weight:800;margin-bottom:.75rem;background:linear-gradient(135deg,var(--text-primary) 0%,var(--primary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        .section-description{font-size:1.05rem;color:var(--text-secondary);max-width:680px;margin:0 auto;}
+
+        /* Hero */
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:8rem 2rem 4rem;}
+        .hero-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+        .hero-text{animation:fadeInUp 1s ease-out;}
+        .hero-title{font-family:'Playfair Display',serif;font-size:3.7rem;font-weight:800;line-height:1.1;margin-bottom:1.4rem;background:linear-gradient(135deg,var(--text-primary) 0%,var(--primary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        .hero-subtitle{font-size:1.15rem;color:var(--text-secondary);margin-bottom:2.3rem;line-height:1.8;}
+        .hero-buttons{display:flex;gap:1.3rem;flex-wrap:wrap;}
+        .hero-image{animation:fadeInRight 1s ease-out .3s both;}
+        .hero-image img{width:100%;border-radius:20px;box-shadow:0 30px 60px rgba(64,152,145,.2);border:1px solid rgba(64,152,145,.2);}
+        .floating-elements{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+        .floating-icon{position:absolute;font-size:2rem;color:var(--primary);opacity:.08;animation:floatAnim 6s ease-in-out infinite;}
+        .floating-icon:nth-child(1){top:20%;left:10%;animation-delay:0s;}
+        .floating-icon:nth-child(2){top:60%;right:15%;animation-delay:1s;}
+        .floating-icon:nth-child(3){bottom:20%;left:20%;animation-delay:2s;}
+        @keyframes floatAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+
+        /* Stats */
+        .stats{background:linear-gradient(135deg,rgba(186,208,204,.35),rgba(72,173,183,.2));border-top:1px solid rgba(64,152,145,.2);border-bottom:1px solid rgba(64,152,145,.2);}
+        .stats-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2.5rem;}
+        .stat-item{text-align:center;}
+        .stat-number{font-family:'Playfair Display',serif;font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.35rem;}
+        .stat-label{color:var(--text-secondary);font-size:.95rem;text-transform:uppercase;letter-spacing:2px;}
+
+        /* Services */
+        .services-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(295px,1fr));gap:1.8rem;}
+        .service-card{background:white;border-radius:20px;padding:2.3rem;border:1px solid rgba(64,152,145,.15);transition:all .4s;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+        .service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(64,152,145,.05),rgba(72,173,183,.05));opacity:0;transition:opacity .4s;}
+        .service-card:hover{transform:translateY(-10px);border-color:var(--primary);box-shadow:0 20px 55px rgba(64,152,145,.15);}
+        .service-card:hover::before{opacity:1;}
+        .service-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:white;margin-bottom:1.3rem;position:relative;z-index:1;}
+        .service-card h3{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:.75rem;position:relative;z-index:1;color:var(--text-primary);}
+        .service-card p{color:var(--text-secondary);line-height:1.7;position:relative;z-index:1;flex:1;}
+        .service-products-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;background:transparent;color:var(--primary);border:2px solid var(--primary);border-radius:50px;padding:.55rem 1.3rem;font-weight:600;font-size:.88rem;text-decoration:none;cursor:pointer;transition:all .3s;position:relative;z-index:1;}
+        .service-products-btn:hover{background:var(--primary);color:white;}
+
+        /* Products */
+        .products-section{background:rgba(186,208,204,.1);}
+        .products-nav{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-bottom:3rem;}
+        .product-category-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.3rem;border-radius:50px;border:2px solid rgba(64,152,145,.25);background:white;color:var(--text-secondary);font-weight:600;font-size:.88rem;text-decoration:none;cursor:pointer;transition:all .3s;}
+        .product-category-btn:hover,.product-category-btn.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border-color:transparent;box-shadow:0 8px 20px rgba(64,152,145,.3);}
+        .service-products-grid{display:none;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.8rem;max-width:1400px;margin:0 auto;}
+        .service-products-grid.active{display:grid;}
+        .product-card{background:white;border-radius:20px;overflow:hidden;border:1px solid rgba(64,152,145,.15);transition:all .4s;display:flex;flex-direction:column;}
+        .product-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(64,152,145,.15);border-color:var(--primary);}
+        .product-image{background:linear-gradient(135deg,var(--primary),var(--secondary));height:125px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;color:white;}
+        .product-content{padding:1.7rem;flex:1;display:flex;flex-direction:column;}
+        .product-category{display:inline-block;background:rgba(64,152,145,.1);color:var(--primary);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:.28rem .75rem;border-radius:50px;margin-bottom:.7rem;}
+        .product-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text-primary);margin-bottom:.45rem;}
+        .product-price{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:.7rem;}
+        .product-description{color:var(--text-secondary);font-size:.92rem;line-height:1.6;margin-bottom:.9rem;flex:1;}
+        .product-features{list-style:none;display:flex;flex-direction:column;gap:.38rem;}
+        .product-features li{display:flex;align-items:center;gap:.55rem;font-size:.88rem;color:var(--text-secondary);}
+        .product-features i{color:var(--primary);font-size:.82rem;flex-shrink:0;}
+
+        /* About */
+        .about-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+        .about-text h3{font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:1.4rem;background:linear-gradient(135deg,var(--text-primary) 0%,var(--primary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        .about-text p{color:var(--text-secondary);margin-bottom:1.3rem;font-size:1rem;line-height:1.8;}
+        .features-list{list-style:none;margin:1.4rem 0;}
+        .features-list li{display:flex;align-items:center;gap:.9rem;margin-bottom:.85rem;color:var(--text-secondary);}
+        .features-list i{color:var(--primary);font-size:1.1rem;}
+        .about-image img{width:100%;border-radius:20px;box-shadow:0 30px 60px rgba(64,152,145,.2);border:1px solid rgba(64,152,145,.2);}
+
+        /* Gallery */
+        .gallery-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem;}
+        .gallery-item{position:relative;border-radius:15px;overflow:hidden;cursor:pointer;aspect-ratio:4/3;}
+        .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+        .gallery-item:hover img{transform:scale(1.1);}
+        .gallery-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.8) 100%);display:flex;align-items:flex-end;padding:1.4rem;opacity:0;transition:opacity .4s;}
+        .gallery-item:hover .gallery-overlay{opacity:1;}
+        .gallery-overlay h4{font-family:'Playfair Display',serif;font-size:1.15rem;color:white;}
+
+        /* Contact */
+        .contact-wrapper{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;}
+        .contact-info{display:flex;flex-direction:column;gap:1.3rem;}
+        .contact-item{background:white;border-radius:15px;padding:1.6rem;border:1px solid rgba(64,152,145,.15);display:flex;gap:1.2rem;transition:all .3s;}
+        .contact-item:hover{border-color:var(--primary);transform:translateX(5px);}
+        .contact-item-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:white;flex-shrink:0;}
+        .contact-item-content h4{font-family:'Playfair Display',serif;margin-bottom:.35rem;font-size:1.05rem;color:var(--text-primary);}
+        .contact-item-content p{color:var(--text-secondary);font-size:.93rem;}
+        .contact-form{background:white;border-radius:20px;padding:2.8rem;border:1px solid rgba(64,152,145,.15);}
+        .contact-form h3{font-family:'Playfair Display',serif;font-size:1.85rem;margin-bottom:1.8rem;color:var(--text-primary);}
+        .form-group{margin-bottom:1.3rem;}
+        .form-group label{display:block;margin-bottom:.45rem;color:var(--text-secondary);font-weight:500;font-size:.92rem;}
+        .form-group input,.form-group textarea,.form-group select{width:100%;padding:.9rem 1rem;background:var(--light-bg);border:1px solid rgba(64,152,145,.2);border-radius:10px;color:var(--text-primary);font-family:'Lato',sans-serif;font-size:.97rem;transition:all .3s;}
+        .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 18px rgba(64,152,145,.15);}
+        .form-group textarea{min-height:135px;resize:vertical;}
+
         /* Footer */
-        footer {
-            background: var(--dark);
-            border-top: 1px solid rgba(64, 152, 145, 0.2);
-            padding: 4rem 2rem 2rem;
+        footer{background:var(--dark);border-top:1px solid rgba(64,152,145,.2);padding:4rem 2rem 2rem;}
+        .footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.8rem;margin-bottom:2.8rem;}
+        .footer-column h4{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1.3rem;color:var(--primary);}
+        .footer-column p,.footer-column li{color:var(--accent);margin-bottom:.7rem;line-height:1.7;font-size:.93rem;}
+        .footer-column ul{list-style:none;}
+        .footer-column a{color:var(--accent);text-decoration:none;transition:color .3s;}
+        .footer-column a:hover{color:var(--secondary);}
+        .footer-column ul li i{margin-right:.45rem;color:var(--secondary);font-size:.82rem;}
+        .social-links{display:flex;gap:.75rem;margin-top:.9rem;}
+        .social-link{width:38px;height:38px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;transition:all .3s;}
+        .social-link:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(64,152,145,.3);}
+        .footer-bottom{max-width:1400px;margin:0 auto;padding-top:1.8rem;border-top:1px solid rgba(64,152,145,.2);text-align:center;color:var(--accent);font-size:.88rem;}
+
+        /* Responsive */
+        @media(max-width:1200px){.hero-title{font-size:3.1rem}.section-title{font-size:2.3rem}}
+        @media(max-width:968px){
+            nav ul{display:none;position:fixed;top:70px;left:0;width:100%;background:rgba(230,229,225,.98);backdrop-filter:blur(20px);flex-direction:column;padding:1.8rem;gap:1.1rem;border-bottom:1px solid rgba(64,152,145,.2);}
+            nav ul.active{display:flex;}
+            .mobile-menu-btn{display:block;}
+            .hero-content{grid-template-columns:1fr;gap:2.5rem;}
+            .hero-title{font-size:2.7rem;}
+            .about-content{grid-template-columns:1fr;gap:3rem;}
+            .contact-wrapper{grid-template-columns:1fr;}
         }
-        
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-        
-        .footer-column h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .footer-column p,
-        .footer-column li {
-            color: var(--accent);
-            margin-bottom: 0.8rem;
-            line-height: 1.7;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-column a:hover {
-            color: var(--secondary);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(64, 152, 145, 0.3);
-        }
-        
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(64, 152, 145, 0.2);
-            text-align: center;
-            color: var(--accent);
-        }
-        
-        /* Animations */
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .hero-title {
-                font-size: 3.5rem;
-            }
-            
-            .section-title {
-                font-size: 2.5rem;
-            }
-        }
-        
-        @media (max-width: 968px) {
-            nav ul {
-                display: none;
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background: rgba(230, 229, 225, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                border-bottom: 1px solid rgba(64, 152, 145, 0.2);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-            }
-            
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
+        @media(max-width:640px){
+            .hero-title{font-size:2.2rem;}
+            .section-title{font-size:1.9rem;}
+            .services-grid{grid-template-columns:1fr;}
+            .service-products-grid{grid-template-columns:1fr;}
+            .stats-grid{grid-template-columns:1fr 1fr;gap:1.5rem;}
+            .hero-buttons{flex-direction:column;}
+            .btn-primary,.btn-secondary{width:100%;justify-content:center;}
+            .contact-form{padding:1.8rem 1.4rem;}
+            .products-nav{gap:.4rem;}
+            .product-category-btn{font-size:.78rem;padding:.45rem .9rem;}
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="background-animation"></div>
-    <div class="grid-overlay"></div>
 
-    <!-- Header -->
-    <header id="header">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-shield-halved"></i>
-                </div>
-                <div class="logo-text">MUSH TECH</div>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <ul id="navMenu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact" class="cta-button">Get Started</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<div class="bg-anim"></div>
+<div class="grid-overlay"></div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="floating-elements">
-            <i class="fas fa-video floating-icon"></i>
-            <i class="fas fa-lock floating-icon"></i>
-            <i class="fas fa-bolt floating-icon"></i>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/254792541685?text=Hello%20Mush%20Tech%20Solution,%20I'm%20interested%20in%20your%20services"
+   class="whatsapp-float" target="_blank" rel="noopener">
+    <i class="fab fa-whatsapp"></i>
+    <div class="whatsapp-tooltip">Chat with us on WhatsApp</div>
+</a>
+
+<!-- Header -->
+<header id="header">
+    <div class="nav-container">
+        <div class="logo">
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">MUSH<span>TECH</span></div>
         </div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Secure Your World with Advanced Technology</h1>
-                <p class="hero-subtitle">Leading provider of comprehensive security and IT solutions in Nairobi. CCTV installation, access control, electric fencing, and cutting-edge IT infrastructure for residential and commercial properties.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn-primary">
-                        Request Quote <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#services" class="btn-secondary">
-                        Our Services <i class="fas fa-chevron-down"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Advanced Security Systems">
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact" class="cta-button">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+    <div class="floating-elements">
+        <i class="fas fa-video floating-icon"></i>
+        <i class="fas fa-lock floating-icon"></i>
+        <i class="fas fa-bolt floating-icon"></i>
+    </div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">Secure Your World with Advanced Technology</h1>
+            <p class="hero-subtitle">Leading provider of comprehensive security and IT solutions in Nairobi. CCTV installation, access control, electric fencing, and cutting-edge IT infrastructure for residential and commercial properties.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">Request Quote <i class="fas fa-arrow-right"></i></a>
+                <a href="#services" class="btn-secondary">Our Services <i class="fas fa-chevron-down"></i></a>
             </div>
         </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">100+</div>
-                <div class="stat-label">Projects Completed</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Client Satisfaction</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Support Available</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">8+</div>
-                <div class="stat-label">Years Experience</div>
-            </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Advanced Security Systems">
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services Section -->
-    <section id="services">
+<!-- Stats -->
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat-item"><div class="stat-number">100+</div><div class="stat-label">Projects Completed</div></div>
+        <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Client Satisfaction</div></div>
+        <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Support Available</div></div>
+        <div class="stat-item"><div class="stat-number">8+</div><div class="stat-label">Years Experience</div></div>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+    <div class="container">
         <div class="section-header">
             <div class="section-label">What We Offer</div>
             <h2 class="section-title">Our Premium Services</h2>
@@ -980,65 +274,125 @@
         </div>
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-video"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-video"></i></div>
                 <h3>CCTV Camera Installation</h3>
-                <p>Professional installation of high-definition CCTV surveillance systems with remote monitoring capabilities. Indoor and outdoor cameras ensuring 24/7 security coverage for your property.</p>
+                <p>Professional installation of high-definition CCTV surveillance systems with remote monitoring capabilities. Indoor and outdoor cameras ensuring 24/7 security coverage.</p>
+                <a href="#products" class="service-products-btn" onclick="showProducts('cctv')"><i class="fas fa-boxes"></i> View CCTV Products</a>
             </div>
-            
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-fingerprint"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-fingerprint"></i></div>
                 <h3>Access Control Systems</h3>
-                <p>Advanced biometric scanners, key card systems, and digital locks. Manage access with customizable security levels and comprehensive audit trails for complete control.</p>
+                <p>Advanced biometric scanners, key card systems, and digital locks. Manage access with customizable security levels and comprehensive audit trails.</p>
+                <a href="#products" class="service-products-btn" onclick="showProducts('access')"><i class="fas fa-boxes"></i> View Access Control Products</a>
             </div>
-            
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-bolt"></i></div>
                 <h3>Electric Fencing</h3>
                 <p>Perimeter security with electric fencing systems that provide strong deterrents against intrusion. Safe, reliable, and designed for specific property requirements.</p>
+                <a href="#products" class="service-products-btn" onclick="showProducts('fencing')"><i class="fas fa-boxes"></i> View Fencing Products</a>
             </div>
-            
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-bell"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-bell"></i></div>
                 <h3>Intruder Alarm Systems</h3>
                 <p>Comprehensive detection systems with sensors, alarms, and direct connection to security response teams. Immediate alerts for unauthorized entry attempts.</p>
+                <a href="#products" class="service-products-btn" onclick="showProducts('alarm')"><i class="fas fa-boxes"></i> View Alarm Products</a>
             </div>
-            
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-phone-volume"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-phone-volume"></i></div>
                 <h3>Intercom Systems</h3>
                 <p>Modern video intercoms and door entry systems for residential and commercial buildings. Seamless integration with access control for enhanced communication.</p>
+                <a href="#products" class="service-products-btn" onclick="showProducts('intercom')"><i class="fas fa-boxes"></i> View Intercom Products</a>
             </div>
-            
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-network-wired"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-network-wired"></i></div>
                 <h3>Networking & Cabling</h3>
                 <p>Professional LAN/WAN setup, WiFi installation, and structured cabling for data, voice, and video. Reliable connectivity for all property sizes.</p>
+                <a href="#products" class="service-products-btn" onclick="showProducts('networking')"><i class="fas fa-boxes"></i> View Networking Products</a>
             </div>
-            
             <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-laptop-code"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                 <h3>General IT Support</h3>
                 <p>Comprehensive IT support including hardware/software troubleshooting, system maintenance, virus removal, data backup solutions, and IT consultancy.</p>
+                <a href="#products" class="service-products-btn" onclick="showProducts('it')"><i class="fas fa-boxes"></i> View IT Products</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about">
+<!-- Products -->
+<section id="products" class="products-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Our Products</div>
+            <h2 class="section-title">Quality Products & Equipment</h2>
+            <p class="section-description">We use only high-quality, reliable products from trusted manufacturers for all our installations</p>
+        </div>
+        <div class="products-nav" id="productsNav">
+            <a href="#products" class="product-category-btn active" onclick="showProducts('cctv')"><i class="fas fa-video"></i> CCTV</a>
+            <a href="#products" class="product-category-btn" onclick="showProducts('access')"><i class="fas fa-fingerprint"></i> Access Control</a>
+            <a href="#products" class="product-category-btn" onclick="showProducts('fencing')"><i class="fas fa-bolt"></i> Electric Fencing</a>
+            <a href="#products" class="product-category-btn" onclick="showProducts('alarm')"><i class="fas fa-bell"></i> Alarm Systems</a>
+            <a href="#products" class="product-category-btn" onclick="showProducts('intercom')"><i class="fas fa-phone"></i> Intercom</a>
+            <a href="#products" class="product-category-btn" onclick="showProducts('networking')"><i class="fas fa-network-wired"></i> Networking</a>
+            <a href="#products" class="product-category-btn" onclick="showProducts('it')"><i class="fas fa-laptop"></i> IT Equipment</a>
+        </div>
+
+        <!-- CCTV -->
+        <div id="cctv-products" class="service-products-grid active">
+            <div class="product-card"><div class="product-image"><i class="fas fa-video"></i></div><div class="product-content"><span class="product-category">CCTV Camera</span><h3 class="product-title">4K Dome Camera</h3><p class="product-price">KES 8,500 – 15,000</p><p class="product-description">High-resolution 4K dome camera with night vision, weatherproof, and wide viewing angle.</p><ul class="product-features"><li><i class="fas fa-check"></i> 4K Ultra HD Resolution</li><li><i class="fas fa-check"></i> 30m Night Vision</li><li><i class="fas fa-check"></i> Weatherproof IP67</li><li><i class="fas fa-check"></i> 120° Wide Angle</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-video"></i></div><div class="product-content"><span class="product-category">CCTV Camera</span><h3 class="product-title">Bullet Camera</h3><p class="product-price">KES 6,500 – 12,000</p><p class="product-description">Outdoor bullet camera with strong infrared night vision and vandal-proof design.</p><ul class="product-features"><li><i class="fas fa-check"></i> 5MP Resolution</li><li><i class="fas fa-check"></i> 50m Night Vision</li><li><i class="fas fa-check"></i> Vandal-proof</li><li><i class="fas fa-check"></i> IP66 Waterproof</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-hdd"></i></div><div class="product-content"><span class="product-category">DVR/NVR System</span><h3 class="product-title">8-Channel DVR System</h3><p class="product-price">KES 18,000 – 35,000</p><p class="product-description">8-channel digital video recorder with 2TB storage, remote viewing, and motion detection.</p><ul class="product-features"><li><i class="fas fa-check"></i> 8 Camera Channels</li><li><i class="fas fa-check"></i> 2TB HDD Included</li><li><i class="fas fa-check"></i> Remote Mobile Viewing</li><li><i class="fas fa-check"></i> Motion Detection</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-plug"></i></div><div class="product-content"><span class="product-category">Accessories</span><h3 class="product-title">CCTV Power Supply</h3><p class="product-price">KES 2,500 – 5,000</p><p class="product-description">12V DC power supply unit for CCTV cameras with surge protection and multiple outputs.</p><ul class="product-features"><li><i class="fas fa-check"></i> 12V DC Output</li><li><i class="fas fa-check"></i> 8 Camera Ports</li><li><i class="fas fa-check"></i> Surge Protection</li><li><i class="fas fa-check"></i> Overload Protection</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-ethernet"></i></div><div class="product-content"><span class="product-category">Cables</span><h3 class="product-title">Siamese CCTV Cable</h3><p class="product-price">KES 80 – 150 per meter</p><p class="product-description">Siamese cable combining power and video transmission for easy CCTV installation.</p><ul class="product-features"><li><i class="fas fa-check"></i> RG59 + Power Cable</li><li><i class="fas fa-check"></i> 100m per roll</li><li><i class="fas fa-check"></i> UV Protected</li><li><i class="fas fa-check"></i> Weather Resistant</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-database"></i></div><div class="product-content"><span class="product-category">Storage</span><h3 class="product-title">Surveillance HDD</h3><p class="product-price">KES 8,000 – 20,000</p><p class="product-description">High-capacity surveillance hard drive designed for 24/7 recording and reliability.</p><ul class="product-features"><li><i class="fas fa-check"></i> 2TB – 8TB Capacity</li><li><i class="fas fa-check"></i> 24/7 Operation</li><li><i class="fas fa-check"></i> 3–5 Year Warranty</li><li><i class="fas fa-check"></i> Low Power Consumption</li></ul></div></div>
+        </div>
+
+        <!-- Access Control -->
+        <div id="access-products" class="service-products-grid">
+            <div class="product-card"><div class="product-image"><i class="fas fa-fingerprint"></i></div><div class="product-content"><span class="product-category">Biometric</span><h3 class="product-title">Fingerprint Scanner</h3><p class="product-price">KES 15,000 – 30,000</p><p class="product-description">Advanced biometric fingerprint scanner with high accuracy and user management.</p><ul class="product-features"><li><i class="fas fa-check"></i> 1000+ User Capacity</li><li><i class="fas fa-check"></i> 0.1s Recognition Time</li><li><i class="fas fa-check"></i> Anti-spoofing Technology</li><li><i class="fas fa-check"></i> Access Logs</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-id-card"></i></div><div class="product-content"><span class="product-category">Card Reader</span><h3 class="product-title">Proximity Card Reader</h3><p class="product-price">KES 8,000 – 15,000</p><p class="product-description">RFID proximity card reader for secure access control with easy integration.</p><ul class="product-features"><li><i class="fas fa-check"></i> 125kHz Frequency</li><li><i class="fas fa-check"></i> Weatherproof Design</li><li><i class="fas fa-check"></i> LED & Buzzer Indicators</li><li><i class="fas fa-check"></i> Wiegand Output</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-key"></i></div><div class="product-content"><span class="product-category">Electronic Lock</span><h3 class="product-title">Electric Strike Lock</h3><p class="product-price">KES 6,500 – 12,000</p><p class="product-description">Electric strike lock for doors with fail-safe or fail-secure operation modes.</p><ul class="product-features"><li><i class="fas fa-check"></i> 12V/24V DC Operation</li><li><i class="fas fa-check"></i> Hold-on Force: 1200lbs</li><li><i class="fas fa-check"></i> Adjustable Faceplate</li><li><i class="fas fa-check"></i> Durable Construction</li></ul></div></div>
+        </div>
+
+        <!-- Electric Fencing -->
+        <div id="fencing-products" class="service-products-grid">
+            <div class="product-card"><div class="product-image"><i class="fas fa-bolt"></i></div><div class="product-content"><span class="product-category">Energizer</span><h3 class="product-title">Electric Fence Energizer</h3><p class="product-price">KES 12,000 – 25,000</p><p class="product-description">High-voltage low-current energizer for safe and effective electric perimeter fencing.</p><ul class="product-features"><li><i class="fas fa-check"></i> 5–10 Joule Output</li><li><i class="fas fa-check"></i> AC & Battery Backup</li><li><i class="fas fa-check"></i> Alarm Output</li><li><i class="fas fa-check"></i> IP55 Rating</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-project-diagram"></i></div><div class="product-content"><span class="product-category">Fencing Wire</span><h3 class="product-title">High-Tensile Fence Wire</h3><p class="product-price">KES 3,500 – 6,000 per roll</p><p class="product-description">Galvanized high-tensile wire for durable electric fence installation.</p><ul class="product-features"><li><i class="fas fa-check"></i> 200m per Roll</li><li><i class="fas fa-check"></i> 2.5mm Diameter</li><li><i class="fas fa-check"></i> Corrosion Resistant</li><li><i class="fas fa-check"></i> High Conductivity</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-exclamation-triangle"></i></div><div class="product-content"><span class="product-category">Warning Signs</span><h3 class="product-title">Electric Fence Warning Sign</h3><p class="product-price">KES 500 – 1,200</p><p class="product-description">Durable UV-resistant warning signs for electric fence installations.</p><ul class="product-features"><li><i class="fas fa-check"></i> UV Resistant</li><li><i class="fas fa-check"></i> Weatherproof</li><li><i class="fas fa-check"></i> High Visibility</li><li><i class="fas fa-check"></i> Compliant Signage</li></ul></div></div>
+        </div>
+
+        <!-- Alarm -->
+        <div id="alarm-products" class="service-products-grid">
+            <div class="product-card"><div class="product-image"><i class="fas fa-bell"></i></div><div class="product-content"><span class="product-category">Control Panel</span><h3 class="product-title">Alarm Control Panel</h3><p class="product-price">KES 10,000 – 22,000</p><p class="product-description">Programmable alarm control panel with zone management and remote monitoring.</p><ul class="product-features"><li><i class="fas fa-check"></i> 8–32 Zone Support</li><li><i class="fas fa-check"></i> GSM/GPRS Module</li><li><i class="fas fa-check"></i> Battery Backup</li><li><i class="fas fa-check"></i> Mobile App Control</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-broadcast-tower"></i></div><div class="product-content"><span class="product-category">Sensor</span><h3 class="product-title">PIR Motion Sensor</h3><p class="product-price">KES 2,500 – 5,500</p><p class="product-description">Passive infrared motion detector for indoor and outdoor intrusion detection.</p><ul class="product-features"><li><i class="fas fa-check"></i> 12m Detection Range</li><li><i class="fas fa-check"></i> 90° Coverage Angle</li><li><i class="fas fa-check"></i> Pet Immune Option</li><li><i class="fas fa-check"></i> Tamper Detection</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-volume-up"></i></div><div class="product-content"><span class="product-category">Siren</span><h3 class="product-title">Outdoor Alarm Siren</h3><p class="product-price">KES 3,000 – 6,500</p><p class="product-description">Loud outdoor siren with strobe light for deterring intruders effectively.</p><ul class="product-features"><li><i class="fas fa-check"></i> 110dB Output</li><li><i class="fas fa-check"></i> Strobe Light</li><li><i class="fas fa-check"></i> Weatherproof IP54</li><li><i class="fas fa-check"></i> Tamper Alarm</li></ul></div></div>
+        </div>
+
+        <!-- Intercom -->
+        <div id="intercom-products" class="service-products-grid">
+            <div class="product-card"><div class="product-image"><i class="fas fa-door-open"></i></div><div class="product-content"><span class="product-category">Video Intercom</span><h3 class="product-title">Video Door Phone</h3><p class="product-price">KES 12,000 – 28,000</p><p class="product-description">HD video door phone with night vision, two-way audio, and remote door unlock.</p><ul class="product-features"><li><i class="fas fa-check"></i> HD Camera Display</li><li><i class="fas fa-check"></i> Night Vision</li><li><i class="fas fa-check"></i> Remote Unlock</li><li><i class="fas fa-check"></i> Multi-Unit Support</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-phone"></i></div><div class="product-content"><span class="product-category">Audio Intercom</span><h3 class="product-title">Audio Door Station</h3><p class="product-price">KES 5,000 – 10,000</p><p class="product-description">Weatherproof audio intercom station for reliable two-way communication at entrances.</p><ul class="product-features"><li><i class="fas fa-check"></i> Clear Audio Quality</li><li><i class="fas fa-check"></i> Weatherproof IP54</li><li><i class="fas fa-check"></i> Vandal Resistant</li><li><i class="fas fa-check"></i> Easy Installation</li></ul></div></div>
+        </div>
+
+        <!-- Networking -->
+        <div id="networking-products" class="service-products-grid">
+            <div class="product-card"><div class="product-image"><i class="fas fa-wifi"></i></div><div class="product-content"><span class="product-category">Wireless</span><h3 class="product-title">WiFi Access Point</h3><p class="product-price">KES 8,000 – 20,000</p><p class="product-description">High-performance ceiling-mount WiFi access point for seamless wireless coverage.</p><ul class="product-features"><li><i class="fas fa-check"></i> Dual Band AC1200</li><li><i class="fas fa-check"></i> PoE Powered</li><li><i class="fas fa-check"></i> 100+ Client Support</li><li><i class="fas fa-check"></i> Central Management</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-server"></i></div><div class="product-content"><span class="product-category">Switching</span><h3 class="product-title">24-Port Network Switch</h3><p class="product-price">KES 15,000 – 35,000</p><p class="product-description">Managed 24-port Gigabit PoE switch for enterprise-grade network infrastructure.</p><ul class="product-features"><li><i class="fas fa-check"></i> 24x Gigabit Ports</li><li><i class="fas fa-check"></i> PoE+ (30W/port)</li><li><i class="fas fa-check"></i> VLAN Support</li><li><i class="fas fa-check"></i> Rack Mountable</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-ethernet"></i></div><div class="product-content"><span class="product-category">Cabling</span><h3 class="product-title">Cat6 UTP Cable</h3><p class="product-price">KES 6,000 – 9,000 per box</p><p class="product-description">Cat6 unshielded twisted pair cable for fast and reliable Ethernet networking.</p><ul class="product-features"><li><i class="fas fa-check"></i> 305m per Box</li><li><i class="fas fa-check"></i> 1Gbps Speed</li><li><i class="fas fa-check"></i> 250MHz Bandwidth</li><li><i class="fas fa-check"></i> PVC Jacket</li></ul></div></div>
+        </div>
+
+        <!-- IT Equipment -->
+        <div id="it-products" class="service-products-grid">
+            <div class="product-card"><div class="product-image"><i class="fas fa-laptop"></i></div><div class="product-content"><span class="product-category">Computing</span><h3 class="product-title">Business Laptop</h3><p class="product-price">KES 45,000 – 120,000</p><p class="product-description">High-performance business laptops suitable for office productivity and IT tasks.</p><ul class="product-features"><li><i class="fas fa-check"></i> Intel Core i5/i7</li><li><i class="fas fa-check"></i> 8–16GB RAM</li><li><i class="fas fa-check"></i> 256–512GB SSD</li><li><i class="fas fa-check"></i> Windows 11 Pro</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-shield-alt"></i></div><div class="product-content"><span class="product-category">Security</span><h3 class="product-title">Antivirus Software</h3><p class="product-price">KES 3,500 – 8,000 per year</p><p class="product-description">Enterprise-grade antivirus and endpoint protection for businesses of all sizes.</p><ul class="product-features"><li><i class="fas fa-check"></i> Real-time Protection</li><li><i class="fas fa-check"></i> Multi-device License</li><li><i class="fas fa-check"></i> Cloud Management</li><li><i class="fas fa-check"></i> 24/7 Updates</li></ul></div></div>
+            <div class="product-card"><div class="product-image"><i class="fas fa-hdd"></i></div><div class="product-content"><span class="product-category">Storage</span><h3 class="product-title">External Hard Drive</h3><p class="product-price">KES 6,500 – 15,000</p><p class="product-description">Portable and desktop external hard drives for data backup and storage solutions.</p><ul class="product-features"><li><i class="fas fa-check"></i> 1TB – 4TB Options</li><li><i class="fas fa-check"></i> USB 3.0 Interface</li><li><i class="fas fa-check"></i> Plug & Play</li><li><i class="fas fa-check"></i> Cross-platform</li></ul></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section id="about">
+    <div class="container">
         <div class="section-header">
             <div class="section-label">Who We Are</div>
             <h2 class="section-title">About Mush Tech Solution</h2>
@@ -1049,7 +403,6 @@
                 <h3>Leading Security & IT Services Provider</h3>
                 <p>Mush Tech Solution is a premier provider of security and IT services based in Nairobi, Kenya. With over 8 years of experience, we specialize in delivering comprehensive solutions tailored to meet the unique needs of our diverse clientele.</p>
                 <p>Our team of certified professionals is dedicated to providing top-quality installations, maintenance, and support. We utilize cutting-edge technology and premium equipment to ensure your security systems are reliable, efficient, and effective.</p>
-                
                 <ul class="features-list">
                     <li><i class="fas fa-check-circle"></i> Certified and experienced technicians</li>
                     <li><i class="fas fa-check-circle"></i> Latest security technology and equipment</li>
@@ -1057,64 +410,37 @@
                     <li><i class="fas fa-check-circle"></i> Customized solutions for every client</li>
                     <li><i class="fas fa-check-circle"></i> Competitive pricing and warranties</li>
                 </ul>
-                
                 <a href="#contact" class="btn-primary">Get Free Consultation</a>
             </div>
             <div class="about-image">
                 <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80" alt="Professional Security Installation">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Gallery Section -->
-    <section id="gallery">
+<!-- Gallery -->
+<section id="gallery">
+    <div class="container">
         <div class="section-header">
             <div class="section-label">Our Work</div>
             <h2 class="section-title">Project Gallery</h2>
             <p class="section-description">Explore our successful security and IT installations across Nairobi</p>
         </div>
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/736x/f7/05/4b/f7054b262dd7aa971319196f7dbcd714.jpg" alt="CCTV Installation">
-                <div class="gallery-overlay">
-                    <h4>CCTV Installation</h4>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/736x/25/f8/0a/25f80ac10c4e45b071cfea978e3d70b8.jpg" alt="Access Control System">
-                <div class="gallery-overlay">
-                    <h4>Access Control</h4>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&q=80" alt="IT Infrastructure">
-                <div class="gallery-overlay">
-                    <h4>IT Infrastructure</h4>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/736x/ef/12/db/ef12db711563c19a93bebecbb508a0d1.jpg" alt="Commercial Security">
-                <div class="gallery-overlay">
-                    <h4>Electric Fencing</h4>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/736x/b2/76/a0/b276a09d233b228a8ed92985ca89e8f2.jpg" alt="Network Setup">
-                <div class="gallery-overlay">
-                    <h4>Network Setup</h4>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://th.bing.com/th/id/R.0c00b72d2f5343a3392862d06ffcef30?rik=gpKuAkpeYli0ZQ&riu=http%3a%2f%2fwww.alarmlinkamarillo.com%2fuploads%2f2%2f4%2f7%2f9%2f24793878%2fs735656545292807319_p20_i1_w640.jpeg&ehk=zyAk0%2bd3YgU07BuzEoxwypJ14SpC%2f%2fLoH6wutyIYSXg%3d&risl=&pid=ImgRaw&r=0" alt="Residential Security">
-                <div class="gallery-overlay">
-                    <h4>Residential Security</h4>
-                </div>
-            </div>
+            <div class="gallery-item"><img src="https://i.pinimg.com/736x/f7/05/4b/f7054b262dd7aa971319196f7dbcd714.jpg" alt="CCTV Installation"><div class="gallery-overlay"><h4>CCTV Installation</h4></div></div>
+            <div class="gallery-item"><img src="https://i.pinimg.com/736x/25/f8/0a/25f80ac10c4e45b071cfea978e3d70b8.jpg" alt="Access Control"><div class="gallery-overlay"><h4>Access Control</h4></div></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&q=80" alt="IT Infrastructure"><div class="gallery-overlay"><h4>IT Infrastructure</h4></div></div>
+            <div class="gallery-item"><img src="https://i.pinimg.com/736x/ef/12/db/ef12db711563c19a93bebecbb508a0d1.jpg" alt="Electric Fencing"><div class="gallery-overlay"><h4>Electric Fencing</h4></div></div>
+            <div class="gallery-item"><img src="https://i.pinimg.com/736x/b2/76/a0/b276a09d233b228a8ed92985ca89e8f2.jpg" alt="Network Setup"><div class="gallery-overlay"><h4>Network Setup</h4></div></div>
+            <div class="gallery-item"><img src="https://th.bing.com/th/id/R.0c00b72d2f5343a3392862d06ffcef30?rik=gpKuAkpeYli0ZQ&riu=http%3a%2f%2fwww.alarmlinkamarillo.com%2fuploads%2f2%2f4%2f7%2f9%2f24793878%2fs735656545292807319_p20_i1_w640.jpeg&ehk=zyAk0%2bd3YgU07BuzEoxwypJ14SpC%2f%2fLoH6wutyIYSXg%3d&risl=&pid=ImgRaw&r=0" alt="Residential Security"><div class="gallery-overlay"><h4>Residential Security</h4></div></div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact">
+<!-- Contact -->
+<section id="contact">
+    <div class="container">
         <div class="section-header">
             <div class="section-label">Get In Touch</div>
             <h2 class="section-title">Contact Us</h2>
@@ -1123,63 +449,39 @@
         <div class="contact-wrapper">
             <div class="contact-info">
                 <div class="contact-item">
-                    <div class="contact-item-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div class="contact-item-content">
-                        <h4>Call Us</h4>
-                        <p>0792 541 685</p>
-                        <p>0731 231 908</p>
-                    </div>
+                    <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contact-item-content"><h4>Call Us</h4><p>0792 541 685</p><p>0731 231 908</p></div>
                 </div>
-                
                 <div class="contact-item">
-                    <div class="contact-item-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contact-item-content">
-                        <h4>Our Location</h4>
-                        <p>Menengai Building<br>Nairobi, Kenya</p>
-                    </div>
+                    <div class="contact-item-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div class="contact-item-content"><h4>WhatsApp Us</h4><p><a href="https://wa.me/254792541685" target="_blank" style="color:var(--primary);font-weight:600;">+254 792 541 685</a></p><p style="font-size:.85rem;color:var(--text-muted);">Quick responses guaranteed</p></div>
                 </div>
-                
                 <div class="contact-item">
-                    <div class="contact-item-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="contact-item-content">
-                        <h4>Business Hours</h4>
-                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                        <p>Saturday: 9:00 AM - 5:00 PM</p>
-                        <p>Sunday: Closed</p>
-                    </div>
+                    <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-item-content"><h4>Our Location</h4><p>Menengai Building<br>Nairobi, Kenya</p></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
+                    <div class="contact-item-content"><h4>Business Hours</h4><p>Monday – Friday: 8:00 AM – 6:00 PM</p><p>Saturday: 9:00 AM – 5:00 PM</p><p>Sunday: Closed</p></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon"><i class="fas fa-code"></i></div>
+                    <div class="contact-item-content"><h4>Design & Development</h4><p>Cyrus Kibe – 0740 027 395</p></div>
                 </div>
             </div>
-            
             <div class="contact-form">
                 <h3>Send Us a Message</h3>
-                <form action="https://formsubmit.co/mushtechsolution@gmail.com" method="POST">
-                    <!-- FormSubmit Configuration -->
+                <form action="https://formsubmit.co/your-email@example.com" method="POST">
                     <input type="hidden" name="_subject" value="New inquiry from Mush Tech Solution website">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://mushtech.com/thank-you.html">
-                    
+                    <input type="hidden" name="_next" value="#">
+                    <div class="form-group"><label>Full Name</label><input type="text" name="name" placeholder="Enter your full name" required></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" placeholder="e.g. 0712 345 678" required></div>
+                    <div class="form-group"><label>Email Address</label><input type="email" name="email" placeholder="your@email.com" required></div>
                     <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Service Interested In</label>
-                        <select id="service" name="service">
+                        <label>Service Interested In</label>
+                        <select name="service">
                             <option value="">Select a service</option>
                             <option value="cctv">CCTV Camera Installation</option>
                             <option value="access">Access Control</option>
@@ -1191,20 +493,17 @@
                             <option value="multiple">Multiple Services</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" style="width: 100%;">
-                        Send Message <i class="fas fa-paper-plane"></i>
-                    </button>
+                    <div class="form-group"><label>Message</label><textarea name="message" placeholder="Tell us about your security needs..." required></textarea></div>
+                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Send Message <i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
+<!-- Footer -->
+<footer>
+    <div class="container">
         <div class="footer-content">
             <div class="footer-column">
                 <h4>MUSH TECH SOLUTION</h4>
@@ -1216,115 +515,93 @@
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-            
             <div class="footer-column">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="#products"><i class="fas fa-chevron-right"></i> Products</a></li>
+                    <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#gallery"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                 </ul>
             </div>
-            
             <div class="footer-column">
                 <h4>Our Services</h4>
                 <ul>
-                    <li><a href="#services">CCTV Installation</a></li>
-                    <li><a href="#services">Access Control</a></li>
-                    <li><a href="#services">Electric Fencing</a></li>
-                    <li><a href="#services">Alarm Systems</a></li>
-                    <li><a href="#services">IT Support</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> CCTV Installation</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Access Control</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Electric Fencing</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Alarm Systems</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Networking</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> IT Support</a></li>
                 </ul>
             </div>
-            
             <div class="footer-column">
                 <h4>Contact Info</h4>
                 <ul>
-                    <li><i class="fas fa-phone-alt"></i> 0792 541 685</li>
-                    <li><i class="fas fa-phone-alt"></i> 0731 231 908</li>
+                    <li><a href="tel:+254792541685"><i class="fas fa-phone-alt"></i> 0792 541 685</a></li>
+                    <li><a href="tel:+254731231908"><i class="fas fa-phone-alt"></i> 0731 231 908</a></li>
+                    <li><a href="https://wa.me/254792541685" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Us</a></li>
                     <li><i class="fas fa-map-marker-alt"></i> Menengai Building, Nairobi</li>
-                    <li style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(64, 152, 145, 0.2);">
+                    <li style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(64,152,145,.2);">
                         <i class="fas fa-code"></i> Developed by Cyrus Kibe<br>
-                        <span style="margin-left: 1.5rem; font-size: 0.95rem;">0740 027 395</span>
+                        <span style="margin-left:1.3rem;font-size:.86rem;">0740 027 395</span>
                     </li>
                 </ul>
             </div>
         </div>
-        
         <div class="footer-bottom">
             <p>&copy; 2026 Mush Tech Solution. All rights reserved. | Developed by Cyrus Kibe</p>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = navMenu.classList.contains('active') ? 'fa-times' : 'fa-bars';
-            mobileMenuBtn.innerHTML = `<i class="fas ${icon}"></i>`;
+<script>
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
+            ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    document.querySelectorAll('nav ul li a').forEach(l => l.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    }));
+
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 100));
+
+    // Products switcher
+    function showProducts(cat) {
+        document.querySelectorAll('.service-products-grid').forEach(g => g.classList.remove('active'));
+        document.querySelectorAll('.product-category-btn').forEach(b => b.classList.remove('active'));
+        const grid = document.getElementById(cat + '-products');
+        if (grid) grid.classList.add('active');
+        document.querySelectorAll('.product-category-btn').forEach(btn => {
+            if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + cat + "'"))
+                btn.classList.add('active');
         });
-        
-        // Close mobile menu on link click
-        document.querySelectorAll('nav ul li a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const id = this.getAttribute('href');
+            if (id === '#') return;
+            const el = document.querySelector(id);
+            if (el) { e.preventDefault(); window.scrollTo({ top: el.offsetTop - 78, behavior: 'smooth' }); }
         });
-        
-        // Header scroll effect
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const target = document.querySelector(targetId);
-                if (target) {
-                    const headerOffset = 80;
-                    const elementPosition = target.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.service-card, .stat-item, .gallery-item').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
+    });
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.style.animation = 'fadeInUp .7s ease-out forwards'; });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.service-card,.product-card,.stat-item,.gallery-item,.contact-item').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>

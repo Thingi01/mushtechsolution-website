@@ -155,11 +155,11 @@
         /* Gallery Slider */
         .gallery-slider{max-width:1400px;margin:0 auto;position:relative;overflow:hidden;border-radius:20px;box-shadow:0 20px 60px rgba(64,152,145,.2);}
         .gallery-track{display:flex;transition:transform .5s ease-in-out;}
-        .gallery-slide{min-width:100%;position:relative;aspect-ratio:16/9;}
+        .gallery-slide{min-width:100%;position:relative;aspect-ratio:16/10;}
         .gallery-slide img{width:100%;height:100%;object-fit:cover;}
-        .gallery-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.85) 100%);padding:2.5rem;color:white;}
-        .gallery-caption h4{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.5rem;}
-        .gallery-caption p{font-size:1rem;opacity:.9;}
+        .gallery-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.85) 100%);padding:3rem;color:white;}
+        .gallery-caption h4{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:.6rem;}
+        .gallery-caption p{font-size:1.1rem;opacity:.9;}
         .gallery-nav{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);display:flex;justify-content:space-between;padding:0 1.5rem;z-index:10;}
         .gallery-nav button{background:rgba(255,255,255,.9);border:none;width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:1.2rem;color:var(--primary);transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.2);}
         .gallery-nav button:hover{background:white;transform:scale(1.1);}
@@ -207,8 +207,9 @@
             .hero-title{font-size:2.7rem;}
             .about-content{grid-template-columns:1fr;gap:3rem;}
             .contact-wrapper{grid-template-columns:1fr;}
-            .gallery-caption h4{font-size:1.4rem;}
-            .gallery-caption{padding:1.5rem;}
+            .gallery-slide{aspect-ratio:16/11;}
+            .gallery-caption h4{font-size:1.6rem;}
+            .gallery-caption{padding:2rem;}
         }
         @media(max-width:640px){
             .hero-title{font-size:2.2rem;}
@@ -222,7 +223,10 @@
             .contact-form{padding:1.8rem 1.4rem;}
             .products-nav{gap:.4rem;}
             .product-category-btn{font-size:.78rem;padding:.45rem .9rem;}
-            .gallery-caption h4{font-size:1.2rem;}
+            .gallery-slide{aspect-ratio:4/3;}
+            .gallery-caption h4{font-size:1.3rem;}
+            .gallery-caption p{font-size:.9rem;}
+            .gallery-caption{padding:1.5rem;}
             .gallery-nav button{width:40px;height:40px;font-size:1rem;}
             .scroll-hint{font-size:.8rem;}
         }

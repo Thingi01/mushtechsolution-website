@@ -115,9 +115,14 @@
         .products-nav{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-bottom:3rem;}
         .product-category-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.3rem;border-radius:50px;border:2px solid rgba(64,152,145,.25);background:white;color:var(--text-secondary);font-weight:600;font-size:.88rem;text-decoration:none;cursor:pointer;transition:all .3s;}
         .product-category-btn:hover,.product-category-btn.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border-color:transparent;box-shadow:0 8px 20px rgba(64,152,145,.3);}
-        .service-products-grid{display:none;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.8rem;max-width:1400px;margin:0 auto;}
-        .service-products-grid.active{display:grid;}
-        .product-card{background:white;border-radius:20px;overflow:hidden;border:1px solid rgba(64,152,145,.15);transition:all .4s;display:flex;flex-direction:column;}
+        .products-scroll-container{position:relative;max-width:1400px;margin:0 auto;}
+        .service-products-grid{display:none;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;gap:1.8rem;padding:1rem 0 2rem;scrollbar-width:thin;scrollbar-color:var(--primary) var(--light-bg);}
+        .service-products-grid::-webkit-scrollbar{height:8px;}
+        .service-products-grid::-webkit-scrollbar-track{background:var(--light-bg);border-radius:10px;}
+        .service-products-grid::-webkit-scrollbar-thumb{background:var(--primary);border-radius:10px;}
+        .service-products-grid::-webkit-scrollbar-thumb:hover{background:var(--primary-dark);}
+        .service-products-grid.active{display:flex;}
+        .product-card{background:white;border-radius:20px;overflow:hidden;border:1px solid rgba(64,152,145,.15);transition:all .4s;display:flex;flex-direction:column;min-width:300px;max-width:300px;flex-shrink:0;}
         .product-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(64,152,145,.15);border-color:var(--primary);}
         .product-image{height:200px;overflow:hidden;position:relative;}
         .product-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
@@ -130,6 +135,13 @@
         .product-features{list-style:none;display:flex;flex-direction:column;gap:.38rem;}
         .product-features li{display:flex;align-items:center;gap:.55rem;font-size:.88rem;color:var(--text-secondary);}
         .product-features i{color:var(--primary);font-size:.82rem;flex-shrink:0;}
+        .product-scroll-nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;pointer-events:none;z-index:10;padding:0 1rem;}
+        .product-scroll-nav button{pointer-events:all;background:rgba(255,255,255,.95);border:none;width:45px;height:45px;border-radius:50%;cursor:pointer;font-size:1.1rem;color:var(--primary);transition:all .3s;box-shadow:0 4px 15px rgba(64,152,145,.25);display:flex;align-items:center;justify-content:center;}
+        .product-scroll-nav button:hover{background:white;transform:scale(1.1);box-shadow:0 6px 20px rgba(64,152,145,.35);}
+        .product-scroll-nav button:disabled{opacity:.3;cursor:not-allowed;}
+        .scroll-hint{text-align:center;color:var(--text-muted);font-size:.85rem;margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+        .scroll-hint i{animation:slideHint 2s ease-in-out infinite;}
+        @keyframes slideHint{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
 
         /* About */
         .about-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
@@ -202,7 +214,8 @@
             .hero-title{font-size:2.2rem;}
             .section-title{font-size:1.9rem;}
             .services-grid{grid-template-columns:1fr;}
-            .service-products-grid{grid-template-columns:1fr;}
+            .product-card{min-width:280px;max-width:280px;}
+            .product-scroll-nav button{width:38px;height:38px;font-size:1rem;}
             .stats-grid{grid-template-columns:1fr 1fr;gap:1.5rem;}
             .hero-buttons{flex-direction:column;}
             .btn-primary,.btn-secondary{width:100%;justify-content:center;}
@@ -211,6 +224,7 @@
             .product-category-btn{font-size:.78rem;padding:.45rem .9rem;}
             .gallery-caption h4{font-size:1.2rem;}
             .gallery-nav button{width:40px;height:40px;font-size:1rem;}
+            .scroll-hint{font-size:.8rem;}
         }
     </style>
 </head>
@@ -290,7 +304,7 @@
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-image">
-                    <img src="https://www.pngitem.com/pimgs/m/534-5349594_indoor-dome-camera-hd-png-download.png" alt="CCTV Camera Installation">
+                    <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80" alt="CCTV Camera Installation">
                 </div>
                 <div class="service-content">
                     <h3>CCTV Camera Installation</h3>
@@ -300,7 +314,7 @@
             </div>
             <div class="service-card">
                 <div class="service-image">
-                    <img src="https://static.vecteezy.com/system/resources/thumbnails/011/977/562/small_2x/women-hand-reaching-to-use-rfid-key-card-to-access-to-office-building-area-and-workspace-in-building-security-only-for-authorized-person-free-photo.jpg" alt="Access Control Systems">
+                    <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&q=80" alt="Access Control Systems">
                 </div>
                 <div class="service-content">
                     <h3>Access Control Systems</h3>
@@ -310,7 +324,7 @@
             </div>
             <div class="service-card">
                 <div class="service-image">
-                    <img src="https://helderbergelectricfencing.co.za/images/gallery/8.jpg" alt="Electric Fencing">
+                    <img src="https://images.unsplash.com/photo-1569163139394-de4798aa62b6?w=600&q=80" alt="Electric Fencing">
                 </div>
                 <div class="service-content">
                     <h3>Electric Fencing</h3>
@@ -320,7 +334,7 @@
             </div>
             <div class="service-card">
                 <div class="service-image">
-                    <img src="https://advancedfiresystems.b-cdn.net/wp-content/uploads/2022/10/Intruder-Alarm.jpg" alt="Intruder Alarm Systems">
+                    <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80" alt="Intruder Alarm Systems">
                 </div>
                 <div class="service-content">
                     <h3>Intruder Alarm Systems</h3>
@@ -330,7 +344,7 @@
             </div>
             <div class="service-card">
                 <div class="service-image">
-                    <img src="https://cdn.pixabay.com/photo/2022/06/08/20/26/intercom-7251175_960_720.png" alt="Intercom Systems">
+                    <img src="https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=600&q=80" alt="Intercom Systems">
                 </div>
                 <div class="service-content">
                     <h3>Intercom Systems</h3>
@@ -380,16 +394,22 @@
             <a href="#products" class="product-category-btn" onclick="showProducts('it')"><i class="fas fa-laptop"></i> IT Equipment</a>
         </div>
 
+        <div class="products-scroll-container">
+            <div class="product-scroll-nav">
+                <button onclick="scrollProducts('left')" id="scrollLeft"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="scrollProducts('right')" id="scrollRight"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
         <!-- CCTV -->
         <div id="cctv-products" class="service-products-grid active">
             <div class="product-card">
                 <div class="product-image">
-                    <img src="https://www.ctccommunications.com.au/cdn/shop/products/Hikvision-DS-2CD2165G0-I_1200x1200.jpg?v=1666302586" alt="4K Dome Camera">
+                    <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=400&q=80" alt="4K Dome Camera">
                 </div>
                 <div class="product-content">
                     <span class="product-category">CCTV Camera</span>
                     <h3 class="product-title">4K Dome Camera</h3>
-                    <p class="product-price">KES 3,000-3,500</p>
+                    <p class="product-price">KES 3,000</p>
                     <p class="product-description">High-resolution 4K dome camera with night vision, weatherproof, and wide viewing angle.</p>
                     <ul class="product-features">
                         <li><i class="fas fa-check"></i> 4K Ultra HD Resolution</li>
@@ -401,12 +421,12 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
-                    <img src="https://5.imimg.com/data5/SELLER/Default/2023/10/352054579/SW/MU/TP/3317023/hikvision-2mp-bullet-camera-ds-2ce1adot-itp-eco-1000x1000.jpg" alt="Bullet Camera">
+                    <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=400&q=80" alt="Bullet Camera">
                 </div>
                 <div class="product-content">
                     <span class="product-category">CCTV Camera</span>
                     <h3 class="product-title">Bullet Camera</h3>
-                    <p class="product-price">KES 3,500 – 4,000</p>
+                    <p class="product-price">KES 6,500 – 12,000</p>
                     <p class="product-description">Outdoor bullet camera with strong infrared night vision and vandal-proof design.</p>
                     <ul class="product-features">
                         <li><i class="fas fa-check"></i> 5MP Resolution</li>
@@ -418,12 +438,12 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
-                    <img src="https://5.imimg.com/data5/IA/KY/MY-7855534/hikvision-8-channel-dvr-500x500.jpg" alt="DVR System">
+                    <img src="https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=400&q=80" alt="DVR System">
                 </div>
                 <div class="product-content">
                     <span class="product-category">DVR/NVR System</span>
                     <h3 class="product-title">8-Channel DVR System</h3>
-                    <p class="product-price">KES 8,000 – 10,000</p>
+                    <p class="product-price">KES 18,000 – 35,000</p>
                     <p class="product-description">8-channel digital video recorder with 2TB storage, remote viewing, and motion detection.</p>
                     <ul class="product-features">
                         <li><i class="fas fa-check"></i> 8 Camera Channels</li>
@@ -435,12 +455,12 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
-                    <img src="https://tse3.mm.bing.net/th/id/OIP.hC6Un7JY5zjPpjseUr-fxQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Power Supply">
+                    <img src="https://images.unsplash.com/photo-1580752300992-559f8e0734e0?w=400&q=80" alt="Power Supply">
                 </div>
                 <div class="product-content">
                     <span class="product-category">Accessories</span>
                     <h3 class="product-title">CCTV Power Supply</h3>
-                    <p class="product-price">KES 2,000 – 5,000</p>
+                    <p class="product-price">KES 2,500 – 5,000</p>
                     <p class="product-description">12V DC power supply unit for CCTV cameras with surge protection and multiple outputs.</p>
                     <ul class="product-features">
                         <li><i class="fas fa-check"></i> 12V DC Output</li>
@@ -452,7 +472,7 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
-                    <img src="https://lzd-img-global.slatic.net/g/p/d33b936f708f6f9d36ce83a35da24863.jpg_720x720q80.jpg" alt="CCTV Cable">
+                    <img src="https://images.unsplash.com/photo-1598966739654-5e9cef67c1e4?w=400&q=80" alt="CCTV Cable">
                 </div>
                 <div class="product-content">
                     <span class="product-category">Cables</span>
@@ -469,7 +489,7 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
-                    <img src="https://www.dataworld.co.ke/wp-content/uploads/2022/11/1TB-Surveillance-Hard-disk.webp" alt="Surveillance HDD">
+                    <img src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=400&q=80" alt="Surveillance HDD">
                 </div>
                 <div class="product-content">
                     <span class="product-category">Storage</span>
@@ -798,6 +818,8 @@
                 </div>
             </div>
         </div>
+        </div>
+        <div class="scroll-hint"><i class="fas fa-hand-pointer"></i> Scroll or use arrows to view more products</div>
     </div>
 </section>
 
@@ -1006,7 +1028,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Mush Tech Solution. All rights reserved. </p>
+            <p>&copy; 2026 Mush Tech Solution. All rights reserved. | Developed by Cyrus Kibe</p>
         </div>
     </div>
 </footer>
@@ -1040,6 +1062,39 @@
                 btn.classList.add('active');
         });
     }
+
+    // Products horizontal scroll
+    function scrollProducts(direction) {
+        const activeGrid = document.querySelector('.service-products-grid.active');
+        if (!activeGrid) return;
+        
+        const scrollAmount = 340; // card width + gap
+        if (direction === 'left') {
+            activeGrid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            activeGrid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }
+
+    // Update scroll buttons state
+    function updateScrollButtons() {
+        const activeGrid = document.querySelector('.service-products-grid.active');
+        if (!activeGrid) return;
+        
+        const leftBtn = document.getElementById('scrollLeft');
+        const rightBtn = document.getElementById('scrollRight');
+        
+        leftBtn.disabled = activeGrid.scrollLeft <= 0;
+        rightBtn.disabled = activeGrid.scrollLeft >= (activeGrid.scrollWidth - activeGrid.clientWidth - 10);
+    }
+
+    // Listen to scroll events on product grids
+    document.querySelectorAll('.service-products-grid').forEach(grid => {
+        grid.addEventListener('scroll', updateScrollButtons);
+    });
+
+    // Initial button state
+    setTimeout(updateScrollButtons, 100);
 
     // Gallery Slider
     let currentSlide = 0;

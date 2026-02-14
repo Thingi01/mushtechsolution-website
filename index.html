@@ -128,13 +128,15 @@
         .product-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
         .product-card:hover .product-image img{transform:scale(1.1);}
         .product-content{padding:1.7rem;flex:1;display:flex;flex-direction:column;}
-        .product-category{display:inline-block;background:rgba(64,152,145,.1);color:var(--primary);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:.28rem .75rem;border-radius:50px;margin-bottom:.7rem;}
+        .product-category{display:inline-block;background:rgba(64,152,145,.1);color:var(--primary);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:.28rem .75rem;border-radius:50px;margin-bottom:.7rem;align-self:flex-start;}
         .product-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text-primary);margin-bottom:.45rem;}
         .product-price{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:.7rem;}
         .product-description{color:var(--text-secondary);font-size:.92rem;line-height:1.6;margin-bottom:.9rem;flex:1;}
-        .product-features{list-style:none;display:flex;flex-direction:column;gap:.38rem;}
+        .product-features{list-style:none;display:flex;flex-direction:column;gap:.38rem;margin-bottom:1rem;}
         .product-features li{display:flex;align-items:center;gap:.55rem;font-size:.88rem;color:var(--text-secondary);}
         .product-features i{color:var(--primary);font-size:.82rem;flex-shrink:0;}
+        .enquire-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:.7rem 1.5rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .3s;border:none;cursor:pointer;width:100%;margin-top:auto;}
+        .enquire-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(64,152,145,.4);}
         .product-scroll-nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;pointer-events:none;z-index:10;padding:0 1rem;}
         .product-scroll-nav button{pointer-events:all;background:rgba(255,255,255,.95);border:none;width:45px;height:45px;border-radius:50%;cursor:pointer;font-size:1.1rem;color:var(--primary);transition:all .3s;box-shadow:0 4px 15px rgba(64,152,145,.25);display:flex;align-items:center;justify-content:center;}
         .product-scroll-nav button:hover{background:white;transform:scale(1.1);box-shadow:0 6px 20px rgba(64,152,145,.35);}
@@ -366,16 +368,6 @@
                     <a href="#products" class="service-products-btn" onclick="showProducts('networking')"><i class="fas fa-boxes"></i> View Networking Products</a>
                 </div>
             </div>
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80" alt="General IT Support">
-                </div>
-                <div class="service-content">
-                    <h3>General IT Support</h3>
-                    <p>Comprehensive IT support including hardware/software troubleshooting, system maintenance, virus removal, data backup solutions, and IT consultancy.</p>
-                    <a href="#products" class="service-products-btn" onclick="showProducts('it')"><i class="fas fa-boxes"></i> View IT Products</a>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -395,7 +387,6 @@
             <a href="#products" class="product-category-btn" onclick="showProducts('alarm')"><i class="fas fa-bell"></i> Alarm Systems</a>
             <a href="#products" class="product-category-btn" onclick="showProducts('intercom')"><i class="fas fa-phone"></i> Intercom</a>
             <a href="#products" class="product-category-btn" onclick="showProducts('networking')"><i class="fas fa-network-wired"></i> Networking</a>
-            <a href="#products" class="product-category-btn" onclick="showProducts('it')"><i class="fas fa-laptop"></i> IT Equipment</a>
         </div>
 
         <div class="products-scroll-container">
@@ -421,6 +412,9 @@
                         <li><i class="fas fa-check"></i> Weatherproof IP67</li>
                         <li><i class="fas fa-check"></i> 120° Wide Angle</li>
                     </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the 4K Dome Camera" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
                 </div>
             </div>
             <div class="product-card">
@@ -438,6 +432,9 @@
                         <li><i class="fas fa-check"></i> Vandal-proof</li>
                         <li><i class="fas fa-check"></i> IP66 Waterproof</li>
                     </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Bullet Camera" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
                 </div>
             </div>
             <div class="product-card">
@@ -455,6 +452,9 @@
                         <li><i class="fas fa-check"></i> Remote Mobile Viewing</li>
                         <li><i class="fas fa-check"></i> Motion Detection</li>
                     </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the 8-Channel DVR System" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
                 </div>
             </div>
             <div class="product-card">
@@ -472,6 +472,9 @@
                         <li><i class="fas fa-check"></i> Surge Protection</li>
                         <li><i class="fas fa-check"></i> Overload Protection</li>
                     </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the CCTV Power Supply" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
                 </div>
             </div>
             <div class="product-card">
@@ -489,6 +492,9 @@
                         <li><i class="fas fa-check"></i> UV Protected</li>
                         <li><i class="fas fa-check"></i> Weather Resistant</li>
                     </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Siamese CCTV Cable" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
                 </div>
             </div>
             <div class="product-card">
@@ -506,167 +512,255 @@
                         <li><i class="fas fa-check"></i> 3–5 Year Warranty</li>
                         <li><i class="fas fa-check"></i> Low Power Consumption</li>
                     </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Surveillance HDD" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- ACCESS CONTROL PRODUCTS -->
-<div id="access-control-products" class="service-products-grid">
+        <!-- Access Control -->
+        <div id="access-products" class="service-products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400&q=80" alt="ZKTeco Biometric Device">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Access Control – ZKTeco</span>
+                    <h3 class="product-title">ZKTeco K40 Biometric Terminal</h3>
+                    <p class="product-price">KES 9,500</p>
+                    <p class="product-description">Reliable fingerprint time attendance and access control solution for offices and institutions.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Fingerprint Recognition</li>
+                        <li><i class="fas fa-check"></i> USB Data Export</li>
+                        <li><i class="fas fa-check"></i> 2.8" TFT Screen</li>
+                        <li><i class="fas fa-check"></i> Standalone Operation</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the ZKTeco K40 Biometric Terminal" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=400&q=80" alt="Hikvision Access Control">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Access Control – Hikvision</span>
+                    <h3 class="product-title">Hikvision DS-K1T804 Terminal</h3>
+                    <p class="product-price">KES 12,500</p>
+                    <p class="product-description">Professional RFID access terminal ideal for secure entry management.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Card Authentication</li>
+                        <li><i class="fas fa-check"></i> TCP/IP Support</li>
+                        <li><i class="fas fa-check"></i> Standalone Mode</li>
+                        <li><i class="fas fa-check"></i> Compact Design</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Hikvision DS-K1T804 Terminal" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+        </div>
 
-    <!-- ZKTeco K40 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400&q=80" alt="ZKTeco Biometric Device">
+        <!-- Electric Fencing -->
+        <div id="fencing-products" class="service-products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?w=400&q=80" alt="Electric Fence Energizer">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Electric Fencing – Nemtek</span>
+                    <h3 class="product-title">Nemtek Wizord 2i Energizer</h3>
+                    <p class="product-price">KES 28,000</p>
+                    <p class="product-description">Reliable perimeter security energizer suitable for residential and commercial properties.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> 2-Zone Control</li>
+                        <li><i class="fas fa-check"></i> Battery Backup</li>
+                        <li><i class="fas fa-check"></i> Alarm Integration</li>
+                        <li><i class="fas fa-check"></i> High Voltage Pulses</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Nemtek Wizord 2i Energizer" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1576089172869-4f5f6f315620?w=400&q=80" alt="Electric Fence Wire">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Fencing Accessories</span>
+                    <h3 class="product-title">Electric Fence Installation Kit</h3>
+                    <p class="product-price">From KES 1,200 per meter</p>
+                    <p class="product-description">Complete installation accessories including wires, insulators, warning signs and earth rods.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> High Tensile Wire</li>
+                        <li><i class="fas fa-check"></i> UV Resistant Insulators</li>
+                        <li><i class="fas fa-check"></i> Warning Signage</li>
+                        <li><i class="fas fa-check"></i> Heavy Duty Earth Rods</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Electric Fence Installation Kit" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="product-content">
-            <span class="product-category">Access Control – ZKTeco</span>
-            <h3 class="product-title">ZKTeco K40 Biometric Terminal</h3>
-            <p class="product-price">KES 9,500</p>
-            <p class="product-description">
-                Reliable fingerprint time attendance and access control solution for offices and institutions.
-            </p>
-            <ul class="product-features">
-                <li>Fingerprint Recognition</li>
-                <li>USB Data Export</li>
-                <li>2.8" TFT Screen</li>
-                <li>Standalone Operation</li>
-            </ul>
-            <a href="https://wa.me/254792541685" target="_blank">
-                <button>Enquire Now</button>
-            </a>
+
+        <!-- Alarm Systems -->
+        <div id="alarm-products" class="service-products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=400&q=80" alt="Alarm Panel">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Control Panel</span>
+                    <h3 class="product-title">Alarm Control Panel</h3>
+                    <p class="product-price">KES 10,000 – 22,000</p>
+                    <p class="product-description">Programmable alarm control panel with zone management and remote monitoring.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> 8–32 Zone Support</li>
+                        <li><i class="fas fa-check"></i> GSM/GPRS Module</li>
+                        <li><i class="fas fa-check"></i> Battery Backup</li>
+                        <li><i class="fas fa-check"></i> Mobile App Control</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Alarm Control Panel" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1586210579191-33b45e38fa8c?w=400&q=80" alt="Motion Sensor">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Sensor</span>
+                    <h3 class="product-title">PIR Motion Sensor</h3>
+                    <p class="product-price">KES 2,500 – 5,500</p>
+                    <p class="product-description">Passive infrared motion detector for indoor and outdoor intrusion detection.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> 12m Detection Range</li>
+                        <li><i class="fas fa-check"></i> 90° Coverage Angle</li>
+                        <li><i class="fas fa-check"></i> Pet Immune Option</li>
+                        <li><i class="fas fa-check"></i> Tamper Detection</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the PIR Motion Sensor" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1625315714945-86d39aeaa97b?w=400&q=80" alt="Alarm Siren">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Siren</span>
+                    <h3 class="product-title">Outdoor Alarm Siren</h3>
+                    <p class="product-price">KES 3,000 – 6,500</p>
+                    <p class="product-description">Loud outdoor siren with strobe light for deterring intruders effectively.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> 110dB Output</li>
+                        <li><i class="fas fa-check"></i> Strobe Light</li>
+                        <li><i class="fas fa-check"></i> Weatherproof IP54</li>
+                        <li><i class="fas fa-check"></i> Tamper Alarm</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Outdoor Alarm Siren" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <!-- Intercom Systems -->
+        <div id="intercom-products" class="service-products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1598966739654-5e9cef67c1e4?w=400&q=80" alt="Video Intercom">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Video Intercom</span>
+                    <h3 class="product-title">Video Door Phone</h3>
+                    <p class="product-price">KES 12,000 – 28,000</p>
+                    <p class="product-description">HD video door phone with night vision, two-way audio, and remote door unlock.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> HD Camera Display</li>
+                        <li><i class="fas fa-check"></i> Night Vision</li>
+                        <li><i class="fas fa-check"></i> Remote Unlock</li>
+                        <li><i class="fas fa-check"></i> Multi-Unit Support</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Video Door Phone" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=400&q=80" alt="Audio Intercom">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Audio Intercom</span>
+                    <h3 class="product-title">Audio Door Station</h3>
+                    <p class="product-price">KES 5,000 – 10,000</p>
+                    <p class="product-description">Weatherproof audio intercom station for reliable two-way communication at entrances.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Clear Audio Quality</li>
+                        <li><i class="fas fa-check"></i> Weatherproof IP54</li>
+                        <li><i class="fas fa-check"></i> Vandal Resistant</li>
+                        <li><i class="fas fa-check"></i> Easy Installation</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Audio Door Station" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Networking -->
+        <div id="networking-products" class="service-products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=400&q=80" alt="Cisco 24-Port Switch">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Networking – Cisco</span>
+                    <h3 class="product-title">Cisco Catalyst 24-Port PoE Switch</h3>
+                    <p class="product-price">KES 75,000 – 135,000</p>
+                    <p class="product-description">Managed enterprise switch for robust networking and PoE support for IP devices.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> 24 Gigabit Ports</li>
+                        <li><i class="fas fa-check"></i> PoE+ Support</li>
+                        <li><i class="fas fa-check"></i> VLAN & QoS</li>
+                        <li><i class="fas fa-check"></i> Rack-Mountable</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Cisco Catalyst 24-Port PoE Switch" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&q=80" alt="Wireless Access Point">
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Networking – Ubiquiti</span>
+                    <h3 class="product-title">Ubiquiti UniFi U6 Lite</h3>
+                    <p class="product-price">KES 22,000</p>
+                    <p class="product-description">High-speed WiFi 6 access point for seamless coverage in offices and homes.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> WiFi 6 Technology</li>
+                        <li><i class="fas fa-check"></i> Dual-Band Support</li>
+                        <li><i class="fas fa-check"></i> PoE Powered</li>
+                        <li><i class="fas fa-check"></i> Centralized Management</li>
+                    </ul>
+                    <a href="https://wa.me/254792541685?text=Hello, I'm interested in the Ubiquiti UniFi U6 Lite" target="_blank" class="enquire-btn">
+                        <i class="fab fa-whatsapp"></i> Enquire Now
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="scroll-hint"><i class="fas fa-hand-pointer"></i> Scroll or use arrows to view more products</div>
     </div>
-
-    <!-- Hikvision Access Terminal -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=400&q=80" alt="Hikvision Access Control">
-        </div>
-        <div class="product-content">
-            <span class="product-category">Access Control – Hikvision</span>
-            <h3 class="product-title">Hikvision DS-K1T804 Terminal</h3>
-            <p class="product-price">KES 12,500</p>
-            <p class="product-description">
-                Professional RFID access terminal ideal for secure entry management.
-            </p>
-            <ul class="product-features">
-                <li>Card Authentication</li>
-                <li>TCP/IP Support</li>
-                <li>Standalone Mode</li>
-                <li>Compact Design</li>
-            </ul>
-            <a href="https://wa.me/254792541685" target="_blank">
-                <button>Enquire Now</button>
-            </a>
-        </div>
-    </div>
-
-</div>
-<!-- ELECTRIC FENCING PRODUCTS -->
-<div id="electric-fence-products" class="service-products-grid">
-
-    <!-- Nemtek Energizer -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?w=400&q=80" alt="Electric Fence Energizer">
-        </div>
-        <div class="product-content">
-            <span class="product-category">Electric Fencing – Nemtek</span>
-            <h3 class="product-title">Nemtek Wizord 2i Energizer</h3>
-            <p class="product-price">KES 28,000</p>
-            <p class="product-description">
-                Reliable perimeter security energizer suitable for residential and commercial properties.
-            </p>
-            <ul class="product-features">
-                <li>2-Zone Control</li>
-                <li>Battery Backup</li>
-                <li>Alarm Integration</li>
-                <li>High Voltage Pulses</li>
-            </ul>
-            <a href="https://wa.me/254792541685" target="_blank">
-                <button>Enquire Now</button>
-            </a>
-        </div>
-    </div>
-
-    <!-- Fence Installation Kit -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1576089172869-4f5f6f315620?w=400&q=80" alt="Electric Fence Wire">
-        </div>
-        <div class="product-content">
-            <span class="product-category">Fencing Accessories</span>
-            <h3 class="product-title">Electric Fence Installation Kit</h3>
-            <p class="product-price">From KES 1,200 per meter</p>
-            <p class="product-description">
-                Complete installation accessories including wires, insulators, warning signs and earth rods.
-            </p>
-            <ul class="product-features">
-                <li>High Tensile Wire</li>
-                <li>UV Resistant Insulators</li>
-                <li>Warning Signage</li>
-                <li>Heavy Duty Earth Rods</li>
-            </ul>
-            <a href="https://wa.me/254792541685" target="_blank">
-                <button>Enquire Now</button>
-            </a>
-        </div>
-    </div>
-
-</div>
-<!-- NETWORKING PRODUCTS -->
-<div id="networking-products" class="service-products-grid">
-
-    <!-- Cisco Switch -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=400&q=80" alt="Cisco 24-Port Switch">
-        </div>
-        <div class="product-content">
-            <span class="product-category">Networking – Cisco</span>
-            <h3 class="product-title">Cisco Catalyst 24-Port PoE Switch</h3>
-            <p class="product-price">KES 75,000 – 135,000</p>
-            <p class="product-description">
-                Managed enterprise switch for robust networking and PoE support for IP devices.
-            </p>
-            <ul class="product-features">
-                <li>24 Gigabit Ports</li>
-                <li>PoE+ Support</li>
-                <li>VLAN & QoS</li>
-                <li>Rack-Mountable</li>
-            </ul>
-            <a href="https://wa.me/254792541685" target="_blank">
-                <button>Enquire Now</button>
-            </a>
-        </div>
-    </div>
-
-    <!-- Ubiquiti Access Point -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&q=80" alt="Wireless Access Point">
-        </div>
-        <div class="product-content">
-            <span class="product-category">Networking – Ubiquiti</span>
-            <h3 class="product-title">Ubiquiti UniFi U6 Lite</h3>
-            <p class="product-price">KES 22,000</p>
-            <p class="product-description">
-                High-speed WiFi 6 access point for seamless coverage in offices and homes.
-            </p>
-            <ul class="product-features">
-                <li>WiFi 6 Technology</li>
-                <li>Dual-Band Support</li>
-                <li>PoE Powered</li>
-                <li>Centralized Management</li>
-            </ul>
-            <a href="https://wa.me/254792541685" target="_blank">
-                <button>Enquire Now</button>
-            </a>
-        </div>
-    </div>
-
-</div> 
-            
 </section>
 
 <!-- About -->
@@ -686,7 +780,7 @@
                     <li><i class="fas fa-check-circle"></i> Certified and experienced technicians</li>
                     <li><i class="fas fa-check-circle"></i> Latest security technology and equipment</li>
                     <li><i class="fas fa-check-circle"></i> 24/7 customer support and maintenance</li>
-                    <li><i class="fas fa-check-circle"></i> Customized solutions for every client</li>
+                    <li><i><i class="fas fa-check-circle"></i> Customized solutions for every client</li>
                     <li><i class="fas fa-check-circle"></i> Competitive pricing and warranties</li>
                 </ul>
                 <a href="#contact" class="btn-primary">Get Free Consultation</a>
@@ -807,7 +901,6 @@
                             <option value="alarm">Intruder Alarm System</option>
                             <option value="intercom">Intercom System</option>
                             <option value="networking">Networking & Cabling</option>
-                            <option value="it">General IT Support</option>
                             <option value="multiple">Multiple Services</option>
                         </select>
                     </div>
@@ -852,7 +945,6 @@
                     <li><a href="#services"><i class="fas fa-chevron-right"></i> Electric Fencing</a></li>
                     <li><a href="#services"><i class="fas fa-chevron-right"></i> Alarm Systems</a></li>
                     <li><a href="#services"><i class="fas fa-chevron-right"></i> Networking</a></li>
-                    <li><a href="#services"><i class="fas fa-chevron-right"></i> IT Support</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -903,6 +995,7 @@
             if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + cat + "'"))
                 btn.classList.add('active');
         });
+        setTimeout(updateScrollButtons, 100);
     }
 
     // Products horizontal scroll
@@ -910,7 +1003,7 @@
         const activeGrid = document.querySelector('.service-products-grid.active');
         if (!activeGrid) return;
         
-        const scrollAmount = 340; // card width + gap
+        const scrollAmount = 340;
         if (direction === 'left') {
             activeGrid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         } else {

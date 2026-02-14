@@ -53,7 +53,7 @@
         .cta-button{background:linear-gradient(135deg,var(--primary),var(--secondary)) !important;color:white !important;padding:.65rem 1.5rem;border-radius:50px;font-weight:600 !important;}
         .cta-button:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(74,159,216,.4);}
         .cta-button::after{display:none !important;}
-        .mobile-menu-btn{display:none;background:none;border:none;color:var(--primary);font-size:1.5rem;cursor:pointer;}
+        .mobile-menu-btn{display:none;background:none;border:none;color:var(--primary);font-size:1.5rem;cursor:pointer;margin-left:auto;}
 
         /* Buttons */
         .btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:.95rem 2.3rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;border:none;cursor:pointer;}
@@ -881,11 +881,11 @@
             </div>
             <div class="contact-form">
                 <h3>Send Us a Message</h3>
-                <form action="https://formsubmit.co/mushtechsolution.1@gmail.com" method="POST">
+                <form action="https://formsubmit.co/mushtechsolution.1@gmail.com" method="POST" id="contactForm">
                     <input type="hidden" name="_subject" value="New inquiry from Mush Tech Solution website">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="#">
+                    <input type="hidden" name="_next" value="https://yourgithubusername.github.io/yourrepo/#success">
                     <div class="form-group"><label>Full Name</label><input type="text" name="name" placeholder="Enter your full name" required></div>
                     <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" placeholder="e.g. 0712 345 678" required></div>
                     <div class="form-group"><label>Email Address</label><input type="email" name="email" placeholder="your@email.com" required></div>
@@ -903,7 +903,12 @@
                         </select>
                     </div>
                     <div class="form-group"><label>Message</label><textarea name="message" placeholder="Tell us about your security needs..." required></textarea></div>
-                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Send Message <i class="fas fa-paper-plane"></i></button>
+                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;" id="submitBtn">Send Message <i class="fas fa-paper-plane"></i></button>
+                    <div id="formSuccess" style="display:none;margin-top:1rem;padding:1rem;background:linear-gradient(135deg,rgba(74,159,216,.1),rgba(91,196,232,.1));border:1px solid var(--primary);border-radius:10px;color:var(--primary);text-align:center;">
+                        <i class="fas fa-check-circle" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>
+                        <p style="margin:0;font-weight:600;font-size:1.1rem;">Thank you for contacting us!</p>
+                        <p style="margin:.5rem 0 0;font-size:.9rem;">Your message has been sent successfully. We'll get back to you shortly.</p>
+                    </div>
                 </form>
             </div>
         </div>
@@ -1086,6 +1091,20 @@
         entries.forEach(e => { if (e.isIntersecting) e.target.style.animation = 'fadeInUp .7s ease-out forwards'; });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.service-card,.product-card,.stat-item,.contact-item').forEach(el => obs.observe(el));
+
+    // Form success handler
+    if (window.location.hash === '#success') {
+        const successDiv = document.getElementById('formSuccess');
+        const form = document.getElementById('contactForm');
+        if (successDiv && form) {
+            successDiv.style.display = 'block';
+            form.reset();
+            // Scroll to contact section
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            // Remove hash from URL
+            history.replaceState(null, null, ' ');
+        }
+    }
 </script>
 </body>
 </html>
